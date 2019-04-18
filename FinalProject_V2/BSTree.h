@@ -6,6 +6,9 @@
 using namespace std;
 #include "Node.h"
 
+
+
+
 // Binary Search Tree class
 template <typename DATATYPE, typename KEYTYPE>
 class BSTree {
@@ -19,6 +22,7 @@ private:
 
 public:
     BSTree<DATATYPE, KEYTYPE>();
+    BSTree<DATATYPE, KEYTYPE> (DATATYPE& _node);
     ~BSTree<DATATYPE, KEYTYPE>();
     Node<DATATYPE, KEYTYPE> * Root() { return root; }
     void setRoot(Node<DATATYPE, KEYTYPE> * _root) {root = _root;}
@@ -29,5 +33,8 @@ public:
     void deleteNode(KEYTYPE key);
 	Node<DATATYPE, KEYTYPE> * min(Node<DATATYPE, KEYTYPE> * node);
 	Node<DATATYPE, KEYTYPE> * max(Node<DATATYPE, KEYTYPE> * node);
+    
+    
+    void ReadCSVFile(string filename);
 };
 #endif  //BST

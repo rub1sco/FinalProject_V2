@@ -6,10 +6,16 @@
 but do NOT compile it (or add it to the project)*/
 #include "BSTree.h"
 
+
 // Constructor
 template <typename DATATYPE, typename KEYTYPE>
 BSTree<DATATYPE, KEYTYPE>::BSTree() {
 	root = nullptr;
+    
+}
+template <typename DATATYPE, typename KEYTYPE>
+BSTree<DATATYPE, KEYTYPE>::BSTree(DATATYPE& _node){
+    root = _node;
 }
 
 // Destructor
@@ -52,25 +58,40 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, DATATYPE &data)
 // Add a node (private)
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * leaf, DATATYPE& data) {
-	//Student must fill in
-	//Don't forget to set your key, Parent, then left or right
-	//Based on the case you use you will addNode recursively to the left or right
- 
-	//First check if root is null
-		//make a new node
-		//set the key and data
-		//set the root
-	//Otherwise
-		//Check to see if the key is < the leaf's key
-			// if left is not null then
-				//Add the node to the left (recursively)
-				// Otherwise make a new node and attach it to the left
-
-		//Check to see if the key >= leaf's key
-			// if leaf's right is not null then
-				//Add the node to the right (recursively)
-			// Otherwise make new node and attach it to the right
-			
+    
+    if(key == leaf -> Key()){
+        //        cout << "value exists.." << endl; //Should we have error checking if key == root key? May cause duplicates.. right now it is unsorted. IE. Ruth Catterson 1929 and 1930.
+    }
+    
+    //if key is less than the root key, insert as left child
+    if(key < leaf -> Key()){
+        //if left node is empty, insert node.
+        if (leaf -> Left() == nullptr){
+            Node<DATATYPE,KEYTYPE>* LeftChild = new Node<DATATYPE,KEYTYPE>;
+            LeftChild -> setData(data);
+            LeftChild -> setKey(key);
+            leaf -> setLeft(LeftChild);
+            leaf -> setParent(root);
+        }
+        else{
+            //if left child is not empty, calls overloaded InsertNode function
+            addNode(key, leaf -> Left(), data);
+        }
+    }
+    else{
+        //if right node is empty, insert as right child
+        if (leaf -> Right() == nullptr){
+            Node<DATATYPE,KEYTYPE>* RightChild = new Node<DATATYPE,KEYTYPE>;
+            RightChild -> setData(data);
+            RightChild -> setKey(key);
+            leaf -> setRight(RightChild);
+            leaf -> setParent(root);
+        }
+        else{
+            //if right child is not empty, calls overloaded InsertNode function
+            addNode(key, leaf -> Right(), data);
+        }
+    }
 }
 
 template <typename DATATYPE, typename KEYTYPE>
@@ -204,3 +225,39 @@ Node<DATATYPE, KEYTYPE> * BSTree<DATATYPE, KEYTYPE>::max(Node<DATATYPE, KEYTYPE>
 
 	return tempNode;
 }
+
+template <typename DATATYPE, typename KEYTYPE>
+void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
+
+    std::ifstream infile;
+    int _Year = 0;
+    bool _Winner = 0;
+    string _Award,_Name, _Film;
+//    BSTree<DATATYPE,KEYTYPE>* B = new BSTree<DATATYPE,KEYTYPE>;
+    BSTree<DATATYPE,KEYTYPE> B;
+    infile.open(filename);
+
+    if(!infile.is_open()){cout << "Error" << endl;}
+
+    //this gets the first line of the csv file and "trashes" it
+    getline(infile, _Award,'\n');
+    while (!infile.eof()) {
+        //Year,Award,Winner,Name,Film
+        infile >> _Year;
+        infile.ignore();
+        getline(infile,_Award,',');
+        infile >> _Winner;
+        infile.ignore();
+        getline(infile,_Name,',');
+        getline(infile,_Film,'\n');
+        GeneralData* newEntry = new GeneralData(_Year, _Award, _Winner, _Name, _Film);
+
+        
+        
+        B.addNode(_Name, *newEntry);
+    }
+
+    infile.close();
+
+}
+

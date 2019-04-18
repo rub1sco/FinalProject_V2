@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E273DB612267BD8F003110FB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E273DB602267BD8F003110FB /* main.cpp */; };
+		E273DB6B2267BDE9003110FB /* BSTDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E273DB682267BDE9003110FB /* BSTDriver.cpp */; };
+		E28C838D2267E6B5009335FB /* functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E28C838B2267E6B4009335FB /* functions.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +25,15 @@
 
 /* Begin PBXFileReference section */
 		E273DB5D2267BD8F003110FB /* FinalProject_V2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FinalProject_V2; sourceTree = BUILT_PRODUCTS_DIR; };
-		E273DB602267BD8F003110FB /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E273DB672267BDE9003110FB /* BSTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTree.h; sourceTree = "<group>"; };
+		E273DB682267BDE9003110FB /* BSTDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BSTDriver.cpp; sourceTree = "<group>"; };
+		E273DB692267BDE9003110FB /* BSTree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BSTree.hpp; sourceTree = "<group>"; };
+		E273DB6A2267BDE9003110FB /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		E28C838B2267E6B4009335FB /* functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = functions.cpp; sourceTree = "<group>"; };
+		E28C838C2267E6B5009335FB /* functions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = functions.hpp; sourceTree = "<group>"; };
+		E28C838E22684169009335FB /* nominations.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nominations.csv; sourceTree = "<group>"; };
+		E28C838F22684169009335FB /* pictures.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pictures.csv; sourceTree = "<group>"; };
+		E28C839022684169009335FB /* actor-actress.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "actor-actress.csv"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +66,25 @@
 		E273DB5F2267BD8F003110FB /* FinalProject_V2 */ = {
 			isa = PBXGroup;
 			children = (
-				E273DB602267BD8F003110FB /* main.cpp */,
+				E273DB6C2267BDFB003110FB /* InputFiles */,
+				E28C838B2267E6B4009335FB /* functions.cpp */,
+				E28C838C2267E6B5009335FB /* functions.hpp */,
+				E273DB682267BDE9003110FB /* BSTDriver.cpp */,
+				E273DB672267BDE9003110FB /* BSTree.h */,
+				E273DB692267BDE9003110FB /* BSTree.hpp */,
+				E273DB6A2267BDE9003110FB /* Node.h */,
 			);
 			path = FinalProject_V2;
+			sourceTree = "<group>";
+		};
+		E273DB6C2267BDFB003110FB /* InputFiles */ = {
+			isa = PBXGroup;
+			children = (
+				E28C839022684169009335FB /* actor-actress.csv */,
+				E28C838E22684169009335FB /* nominations.csv */,
+				E28C838F22684169009335FB /* pictures.csv */,
+			);
+			path = InputFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E273DB612267BD8F003110FB /* main.cpp in Sources */,
+				E273DB6B2267BDE9003110FB /* BSTDriver.cpp in Sources */,
+				E28C838D2267E6B5009335FB /* functions.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
