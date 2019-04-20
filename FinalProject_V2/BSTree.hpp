@@ -36,15 +36,17 @@ void BSTree<DATATYPE, KEYTYPE>::freeNode(Node<DATATYPE, KEYTYPE> * leaf)
 		//recursive call of the leaf's right
 		//now delete the leaf
     
-    if (leaf == root){delete leaf;}
+    if (leaf == root){delete leaf; leaf = nullptr;}
     
     else if (leaf < root){
 //        deleteNode(leaf, root-> Left() -> key);
-        deleteNode(leaf -> key);
+//        deleteNode(leaf -> key);                      //TODO not sure if I should call delete or what to do with "free node" dupe of delete used in deestructor?
+        freeNode(leaf -> Left());
     }
     else if (leaf > root) {
 //        deleteNode(leaf, root -> Right() -> key);
-        deleteNode(leaf -> key);
+//        deleteNode(leaf -> key);                      //TODO not sure if I should call delete or what to do with "free node" dupe of delete used in deestructor?
+        freeNode(leaf -> Right());
     }
 }
 
@@ -65,7 +67,7 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, DATATYPE &data)
 		addNode(key, root, data);
 }
 
-// Add a node (private)         **Edited by Tom Lucero**
+// Add a node (private)         **Edited by Tom L.**
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * leaf, DATATYPE& data) {
     
@@ -112,7 +114,7 @@ Node<DATATYPE, KEYTYPE> * BSTree<DATATYPE, KEYTYPE>::findNode(KEYTYPE key)
 	return findNode(key, root);
 }
 
-// Find a node
+// Find a node          **modified by Tom L.
 template <typename DATATYPE, typename KEYTYPE>
 Node<DATATYPE, KEYTYPE> * BSTree<DATATYPE, KEYTYPE>::findNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * node)
 {
@@ -265,7 +267,7 @@ Node<DATATYPE, KEYTYPE> * BSTree<DATATYPE, KEYTYPE>::max(Node<DATATYPE, KEYTYPE>
 }
 
 
-// **Added by Tom Lucero
+// **Added by Tom L.
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
     //initializing variables
@@ -302,3 +304,8 @@ void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
     infile.close();
 }
 
+template <typename DATATYPE, typename KEYTYPE>
+void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node){
+    
+
+}

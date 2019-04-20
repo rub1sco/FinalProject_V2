@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E273DB6B2267BDE9003110FB /* BSTDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E273DB682267BDE9003110FB /* BSTDriver.cpp */; };
-		E28C838D2267E6B5009335FB /* functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E28C838B2267E6B4009335FB /* functions.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,8 +28,6 @@
 		E273DB682267BDE9003110FB /* BSTDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BSTDriver.cpp; sourceTree = "<group>"; };
 		E273DB692267BDE9003110FB /* BSTree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BSTree.hpp; sourceTree = "<group>"; };
 		E273DB6A2267BDE9003110FB /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
-		E28C838B2267E6B4009335FB /* functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = functions.cpp; sourceTree = "<group>"; };
-		E28C838C2267E6B5009335FB /* functions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = functions.hpp; sourceTree = "<group>"; };
 		E28C838E22684169009335FB /* nominations.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nominations.csv; sourceTree = "<group>"; };
 		E28C838F22684169009335FB /* pictures.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pictures.csv; sourceTree = "<group>"; };
 		E28C839022684169009335FB /* actor-actress.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "actor-actress.csv"; sourceTree = "<group>"; };
@@ -67,8 +64,6 @@
 			isa = PBXGroup;
 			children = (
 				E273DB6C2267BDFB003110FB /* InputFiles */,
-				E28C838B2267E6B4009335FB /* functions.cpp */,
-				E28C838C2267E6B5009335FB /* functions.hpp */,
 				E273DB682267BDE9003110FB /* BSTDriver.cpp */,
 				E273DB672267BDE9003110FB /* BSTree.h */,
 				E273DB692267BDE9003110FB /* BSTree.hpp */,
@@ -144,7 +139,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E273DB6B2267BDE9003110FB /* BSTDriver.cpp in Sources */,
-				E28C838D2267E6B5009335FB /* functions.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

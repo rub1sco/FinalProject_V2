@@ -35,7 +35,9 @@ public:
 	Node<DATATYPE, KEYTYPE> * min(Node<DATATYPE, KEYTYPE> * node);
 	Node<DATATYPE, KEYTYPE> * max(Node<DATATYPE, KEYTYPE> * node);
     
-    
+    //Added functions by Max M. and Tom L.
     void ReadCSVFile(string filename);
+    void SortTree(Node<DATATYPE, KEYTYPE>* node);
+    
 };
 #endif  //BST
