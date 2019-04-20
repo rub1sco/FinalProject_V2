@@ -25,7 +25,7 @@ int main()
 //    ActorTree -> deleteNode("Richard Barthelmess");
     
     //test of finding node based on string value.
-    Node<GeneralData, string> fNode = *ActorTree -> findNode("Richard Barthelmess");
+    Node<GeneralData, string> fNode = *ActorTree -> findNode("Gloria Swanson");
    
     
     ActorTree -> print(cout, ActorTree -> Root() -> Right()-> Data());

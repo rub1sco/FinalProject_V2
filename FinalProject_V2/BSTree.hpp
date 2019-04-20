@@ -128,12 +128,12 @@ Node<DATATYPE, KEYTYPE> * BSTree<DATATYPE, KEYTYPE>::findNode(KEYTYPE key, Node<
     else if (key == node -> Key()){
         return node;
     }
-    else if(key < root -> Key()){
+    else if(key < node -> Key()){
         Node<GeneralData, string>* temp = new Node<GeneralData, string>;
          temp = findNode(key, node -> Left());
         return temp;
     }
-    else if (key > root -> Key()){
+    else if (key > node -> Key()){
         Node<GeneralData, string>* temp = new Node<GeneralData, string>;
         temp = findNode(key, node -> Right());
         
