@@ -116,23 +116,21 @@ Node<DATATYPE, KEYTYPE> * BSTree<DATATYPE, KEYTYPE>::findNode(KEYTYPE key)
 template <typename DATATYPE, typename KEYTYPE>
 Node<DATATYPE, KEYTYPE> * BSTree<DATATYPE, KEYTYPE>::findNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * node)
 {
-	//Student must fill in
-	// trap nullptr first in case we've hit the end unsuccessfully.
-	// success base case
-	//Greater than (Right), Less than (Left)
-    //TODO edit
-    
+    // trap nullptr first in case we've hit the end unsuccessfully.
     if (node == nullptr){
         return nullptr;
     }
+    //base case
     else if (key == node -> Key()){
         return node;
     }
+    //searches left branch recurrsively
     else if(key < node -> Key()){
         Node<GeneralData, string>* temp = new Node<GeneralData, string>;
          temp = findNode(key, node -> Left());
         return temp;
     }
+    //searches right branch recurrsively
     else if (key > node -> Key()){
         Node<GeneralData, string>* temp = new Node<GeneralData, string>;
         temp = findNode(key, node -> Right());
