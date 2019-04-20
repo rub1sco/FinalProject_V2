@@ -36,6 +36,16 @@ void BSTree<DATATYPE, KEYTYPE>::freeNode(Node<DATATYPE, KEYTYPE> * leaf)
 		//recursive call of the leaf's right
 		//now delete the leaf
     
+    if (leaf == root){delete leaf;}
+    
+    else if (leaf < root){
+//        deleteNode(leaf, root-> Left() -> key);
+        deleteNode(leaf -> key);
+    }
+    else if (leaf > root) {
+//        deleteNode(leaf, root -> Right() -> key);
+        deleteNode(leaf -> key);
+    }
 }
 
 // Add a node
@@ -55,12 +65,14 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, DATATYPE &data)
 		addNode(key, root, data);
 }
 
-// Add a node (private)
+// Add a node (private)         **Edited by Tom Lucero**
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * leaf, DATATYPE& data) {
     
     if(key == leaf -> Key()){
         //        cout << "value exists.." << endl; //Should we have error checking if key == root key? May cause duplicates.. right now it is unsorted. IE. Ruth Catterson 1929 and 1930.
+        
+        //TODO is this even necessary?
     }
     
     //if key is less than the root key, insert as left child
@@ -85,7 +97,7 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * l
             RightChild -> setData(data);
             RightChild -> setKey(key);
             leaf -> setRight(RightChild);
-            leaf -> setParent(leaf);               //TODO Fix.. not correct
+            leaf -> setParent(leaf);               //TODO Fix.. not correct..use FindNode?
         }
         else{
             //if right child is not empty, calls overloaded InsertNode function
@@ -108,6 +120,28 @@ Node<DATATYPE, KEYTYPE> * BSTree<DATATYPE, KEYTYPE>::findNode(KEYTYPE key, Node<
 	// trap nullptr first in case we've hit the end unsuccessfully.
 	// success base case
 	//Greater than (Right), Less than (Left)
+    //TODO edit
+    
+    if (node == nullptr){
+        return nullptr;
+    }
+    else if (key == node -> Key()){
+        return node;
+    }
+    else if(key < root -> Key()){
+        Node<GeneralData, string>* temp = new Node<GeneralData, string>;
+         temp = findNode(key, node -> Left());
+        return temp;
+    }
+    else if (key > root -> Key()){
+        Node<GeneralData, string>* temp = new Node<GeneralData, string>;
+        temp = findNode(key, node -> Right());
+        
+        return temp;
+        
+    }
+    
+    
     return node;
 }
 
@@ -125,13 +159,19 @@ void BSTree<DATATYPE, KEYTYPE>::printInorder(Node<DATATYPE, KEYTYPE> * node)
 	//but you may want to do something else when "visiting" the node....
 	//like moving visited data to another datastructure
 	//Don't forget your base case!
-
+    //TODO edit
 }
 
+
+//Prints one Actor node's info  Need to expand for other tree info
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE, KEYTYPE>::print(ostream & out, const DATATYPE & data)
 {
-	out << data.number << "\t" << data.name << endl;
+    //TODO this should be expandable for other trees?
+    out << data.Year << endl;
+    out << data.Name << endl;
+    out << data.Award << endl;
+    out << data.Film << endl;
 }
 
 template <typename DATATYPE, typename KEYTYPE>
@@ -226,21 +266,25 @@ Node<DATATYPE, KEYTYPE> * BSTree<DATATYPE, KEYTYPE>::max(Node<DATATYPE, KEYTYPE>
 	return tempNode;
 }
 
+
+// **Added by Tom Lucero
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
-
+    //initializing variables
     std::ifstream infile;
     int _Year = 0;
     bool _Winner = 0;
     string _Award,_Name, _Film;
-//    BSTree<DATATYPE,KEYTYPE>* B = new BSTree<DATATYPE,KEYTYPE>;
-////    BSTree<DATATYPE,KEYTYPE> B;
+
+    //opening file
     infile.open(filename);
 
-    if(!infile.is_open()){cout << "Error" << endl;}
+    //checks to see if file is open, provides simple error message
+    if(!infile.is_open()){cout << "Error opening file." << endl;}
 
     //this gets the first line of the csv file and "trashes" it
     getline(infile, _Award,'\n');
+    //reads until end of file.
     while (!infile.eof()) {
         //Year,Award,Winner,Name,Film
         infile >> _Year;
@@ -256,7 +300,7 @@ void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
       
         addNode(_Name, *newEntry);
     }
-
+    
     infile.close();
 }
 

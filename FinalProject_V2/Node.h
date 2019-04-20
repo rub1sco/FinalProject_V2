@@ -13,20 +13,20 @@ using namespace std;
 
 struct GeneralData
 {
-    int year;
+    int Year;
     string Award;
     bool Winner;
     string Name;
     string Film;
     GeneralData(){
-        year = 0;
+        Year = 0;
         Award = "";
         Winner = "";
         Name = "";
         Film = "";
     }
     GeneralData(int _year, string _award, bool _winner, string _name, string _film){
-        year = _year;
+        Year = _year;
         Award = _award;
         Winner = _winner;
         Name = _name;
@@ -35,7 +35,7 @@ struct GeneralData
 };
 
 
-//Binary Tree Node
+//Bina*ry Tree Node
 template <typename DATATYPE, typename KEYTYPE>
 class Node {
 private:
