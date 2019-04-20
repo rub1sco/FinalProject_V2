@@ -20,11 +20,11 @@ int main()
  
 	cout << "Adding Nodes...\n";
     BSTree<GeneralData, string>* ActorTree = new BSTree<GeneralData, string>;
-//    ReadCSVFile<GeneralData, string>("actor-actress.csv");
    
     ActorTree -> ReadCSVFile(ActorFile);
+//    BSTree<GeneralData, string> ActorTree = ReadCSVFile<GeneralData, string>(ActorFile);
     
-    ActorTree -> printInorder();
+    ActorTree ->printInorder();
 //    GeneralData tempData;
 //    tempData.number = 10;
 //    tempData.name = "Gamma";

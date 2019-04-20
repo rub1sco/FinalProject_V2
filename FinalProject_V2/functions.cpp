@@ -176,6 +176,12 @@
 ////}
 //
 //
+
+
+
+
+//using member function.. this was used as template.
+
 //template <typename DATATYPE, typename KEYTYPE>
 //BSTree<DATATYPE,KEYTYPE> ReadCSVFile(string filename){
 //
@@ -183,7 +189,6 @@
 //    int _Year = 0;
 //    bool _Winner = 0;
 //    string _Award,_Name, _Film;
-////    BSTree<DATATYPE,KEYTYPE>* B = new BSTree<DATATYPE,KEYTYPE>;
 //    BSTree<DATATYPE,KEYTYPE> B;
 //
 //    infile.open(filename);
@@ -203,11 +208,12 @@
 //        getline(infile,_Film,'\n');
 //        GeneralData* newEntry = new GeneralData(_Year, _Award, _Winner, _Name, _Film);
 //
+//
+//
 //        B.addNode(_Name, *newEntry);
 //    }
 //
 //    infile.close();
-//
 //
 //    return B;
 //}

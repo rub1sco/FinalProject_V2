@@ -4,8 +4,9 @@
 #define BSTREEINT_H
 #include <iostream>
 using namespace std;
-#include "Node.h"
 
+#include "Node.h"
+//#include "functions.hpp"
 
 
 
@@ -18,7 +19,7 @@ private:
     Node<DATATYPE, KEYTYPE> * deleteNode(Node<DATATYPE, KEYTYPE> * node, KEYTYPE key);
     void freeNode(Node<DATATYPE, KEYTYPE> * leaf);
 	void printInorder(Node<DATATYPE, KEYTYPE> * node);
-	Node<DATATYPE, KEYTYPE> * findNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * node);
+    Node<DATATYPE, KEYTYPE> * findNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * node);
 
 public:
     BSTree<DATATYPE, KEYTYPE>();

@@ -71,7 +71,7 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * l
             LeftChild -> setData(data);
             LeftChild -> setKey(key);
             leaf -> setLeft(LeftChild);
-            leaf -> setParent(root);
+            leaf -> setParent(leaf);            //TODO Fix.. not correct
         }
         else{
             //if left child is not empty, calls overloaded InsertNode function
@@ -85,7 +85,7 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * l
             RightChild -> setData(data);
             RightChild -> setKey(key);
             leaf -> setRight(RightChild);
-            leaf -> setParent(root);
+            leaf -> setParent(leaf);               //TODO Fix.. not correct
         }
         else{
             //if right child is not empty, calls overloaded InsertNode function
@@ -234,7 +234,7 @@ void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
     bool _Winner = 0;
     string _Award,_Name, _Film;
 //    BSTree<DATATYPE,KEYTYPE>* B = new BSTree<DATATYPE,KEYTYPE>;
-    BSTree<DATATYPE,KEYTYPE> B;
+////    BSTree<DATATYPE,KEYTYPE> B;
     infile.open(filename);
 
     if(!infile.is_open()){cout << "Error" << endl;}
@@ -251,13 +251,12 @@ void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
         getline(infile,_Name,',');
         getline(infile,_Film,'\n');
         GeneralData* newEntry = new GeneralData(_Year, _Award, _Winner, _Name, _Film);
-
         
         
-        B.addNode(_Name, *newEntry);
+      
+        addNode(_Name, *newEntry);
     }
 
     infile.close();
-
 }
 
