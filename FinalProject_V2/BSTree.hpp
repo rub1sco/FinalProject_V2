@@ -5,17 +5,20 @@
 /*Template Directions: #include "BSTREEInt.hpp"
 but do NOT compile it (or add it to the project)*/
 #include "BSTree.h"
+#include <queue>
 
 
 // Constructor
 template <typename DATATYPE, typename KEYTYPE>
 BSTree<DATATYPE, KEYTYPE>::BSTree() {
 	root = nullptr;
+    treeSize = 0;
     
 }
 template <typename DATATYPE, typename KEYTYPE>
 BSTree<DATATYPE, KEYTYPE>::BSTree(DATATYPE& _node){
     root = _node;
+    treeSize = 1;
 }
 
 // Destructor
@@ -61,7 +64,7 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, DATATYPE &data)
 		newNodePtr->setData(data);
 		root = newNodePtr;
 		root->setParent(root);
-
+        treeSize++;
 	}
 	else
 		addNode(key, root, data);
@@ -151,15 +154,40 @@ void BSTree<DATATYPE, KEYTYPE>::printInorder()
 	printInorder(root);
 }
 
+// prints out the tree's nodes using inorder ordering
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE, KEYTYPE>::printInorder(Node<DATATYPE, KEYTYPE> * node)
 {
-	//Student must fill in.  Use recursive algorithm.
-	//Note that this prints using an Inorder, Depth-first search
-	//but you may want to do something else when "visiting" the node....
-	//like moving visited data to another datastructure
-	//Don't forget your base case!
-    //TODO edit
+	// base case
+    if(node == nullptr)
+        return;
+    
+    // recurse to left child
+    printInorder(node->Left());
+    
+    // print node key
+    cout << node->Key() << endl;
+    
+    // recurse to right child
+    printInorder(node->Right());
+}
+
+// creates an inorder queue of the tree's nodes' data
+template <typename DATATYPE, typename KEYTYPE>
+void BSTree<DATATYPE, KEYTYPE>::inorderQueue(Node<DATATYPE, KEYTYPE> * node, queue<GeneralData> &heapQueue){
+    
+    // base case
+    if(node == nullptr)
+        return;
+    
+    // recurse to left child
+    inorderQueue(node->Left(), heapQueue);
+    
+    // add Data to queue
+    heapQueue.push(node->Data());
+    
+    // recurse to right child
+    inorderQueue(node->Right(), heapQueue);
 }
 
 
@@ -304,8 +332,55 @@ void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
     infile.close();
 }
 
+// sorts tree based on a given sort type
+// second parameter:
+//  'a' to sort by year
+//  'b' to sort by award
+//  'c' to sort by name
+//  'd' to sorty by film
 template <typename DATATYPE, typename KEYTYPE>
-void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node){
+void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sortType)
+{
+    // create queue to store heap
+    queue<GeneralData> tempQueue;
     
-
+    // create heap
+    inorderQueue(node, tempQueue);
+    
+    // delete tree TODO: Currently just sets root point to nullptr, should probably delete entire tree to save memory
+    this->root = nullptr;
+    
+    // build new tree using key type selection
+    switch(sortType){
+        case 'a': //sorts by year
+            while(!tempQueue.empty()){
+                addNode(to_string(tempQueue.front().Year), tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+        case 'b': //sorts by award
+            while(!tempQueue.empty()){
+                addNode(tempQueue.front().Award, tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+        case 'c': //sorts by name
+            while(!tempQueue.empty()){
+                addNode(tempQueue.front().Name, tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+        case 'd': //sorts by film
+            while(!tempQueue.empty()){
+                addNode(tempQueue.front().Film, tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+    }
+    
+    // print new tree
+    printInorder();
+    
+    
+    return;
 }

@@ -3,6 +3,8 @@
 #ifndef BSTREEINT_H
 #define BSTREEINT_H
 #include <iostream>
+#include <fstream>
+#include <queue>
 using namespace std;
 
 #include "Node.h"
@@ -20,6 +22,7 @@ private:
     void freeNode(Node<DATATYPE, KEYTYPE> * leaf);
 	void printInorder(Node<DATATYPE, KEYTYPE> * node);
     Node<DATATYPE, KEYTYPE> * findNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * node);
+    int treeSize; //Note: Added this, didn't end up using it, left it in case it's useful later
 
 public:
     BSTree<DATATYPE, KEYTYPE>();
@@ -37,7 +40,8 @@ public:
     
     //Added functions by Max M. and Tom L.
     void ReadCSVFile(string filename);
-    void SortTree(Node<DATATYPE, KEYTYPE>* node);
+    void inorderQueue(Node<DATATYPE, KEYTYPE> * node, queue<GeneralData> &heapQueue);
+    void SortTree(Node<DATATYPE, KEYTYPE>* node, char sortType);
     
 };
 #endif  //BST

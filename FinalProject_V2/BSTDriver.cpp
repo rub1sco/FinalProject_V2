@@ -6,7 +6,7 @@ Status: works with completed and correct BSTree.cpp
 /*Template Directions: #include "BSTREEInt.hpp"
 but do NOT compile it (or add it to the project)*/
 #include <iostream>
-#include "functions.hpp"
+//#include "functions.hpp"
 #include "BSTree.hpp"
 
 
@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-    char menu;
+    char menu = 0;
     string ActorFile = "actor-actress.csv";
  
 	cout << "Adding Nodes...\n";
@@ -28,10 +28,10 @@ int main()
 //    Node<GeneralData, string> fNode = *ActorTree -> findNode("Louise Dresser");
    
     
-    ActorTree -> print(cout, ActorTree -> Root() -> Right()-> Data());
-//    ActorTree ->printInorder();
+   // ActorTree -> print(cout, ActorTree -> Root() -> Right()-> Data());
+   // ActorTree ->printInorder();
     
-    
+    ActorTree->SortTree(ActorTree->Root(), 'd');
     
     while (menu != 'x' || menu != 'X'){
         cout << "Binary Search tree for Film Database" << endl;
