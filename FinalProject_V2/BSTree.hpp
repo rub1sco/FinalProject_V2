@@ -15,6 +15,7 @@ BSTree<DATATYPE, KEYTYPE>::BSTree() {
     treeSize = 0;
     
 }
+
 template <typename DATATYPE, typename KEYTYPE>
 BSTree<DATATYPE, KEYTYPE>::BSTree(DATATYPE& _node){
     root = _node;
@@ -74,12 +75,6 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, DATATYPE &data)
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * leaf, DATATYPE& data) {
     
-    if(key == leaf -> Key()){
-        //        cout << "value exists.." << endl; //Should we have error checking if key == root key? May cause duplicates.. right now it is unsorted. IE. Ruth Catterson 1929 and 1930.
-        
-        //TODO is this even necessary?
-    }
-    
     //if key is less than the root key, insert as left child
     if(key < leaf -> Key()){
         //if left node is empty, insert node.
@@ -88,7 +83,7 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * l
             LeftChild -> setData(data);
             LeftChild -> setKey(key);
             leaf -> setLeft(LeftChild);
-            leaf -> setParent(leaf);            //TODO Fix.. not correct
+            LeftChild -> setParent(leaf);
         }
         else{
             //if left child is not empty, calls overloaded InsertNode function
@@ -102,7 +97,7 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * l
             RightChild -> setData(data);
             RightChild -> setKey(key);
             leaf -> setRight(RightChild);
-            leaf -> setParent(leaf);               //TODO Fix.. not correct..use FindNode?
+            RightChild -> setParent(leaf);
         }
         else{
             //if right child is not empty, calls overloaded InsertNode function
@@ -349,6 +344,7 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
     
     // delete tree TODO: Currently just sets root point to nullptr, should probably delete entire tree to save memory
     this->root = nullptr;
+//    delete [] root;
     
     // build new tree using key type selection
     switch(sortType){

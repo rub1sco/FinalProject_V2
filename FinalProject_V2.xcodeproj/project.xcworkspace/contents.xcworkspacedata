@@ -2,15 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/MaxMcGrath/Documents/CU Denver/Spring 2019/CSCI 2421/Final Project/FinalProject_V2/FinalProject_V2/actor-actress.csv">
-   </FileRef>
-   <FileRef
-      location = "group:../FinalProject_V2/nominations.csv">
-   </FileRef>
-   <FileRef
-      location = "group:../FinalProject_V2/pictures.csv">
-   </FileRef>
-   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

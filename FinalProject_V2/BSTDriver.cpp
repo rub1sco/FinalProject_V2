@@ -6,7 +6,6 @@ Status: works with completed and correct BSTree.cpp
 /*Template Directions: #include "BSTREEInt.hpp"
 but do NOT compile it (or add it to the project)*/
 #include <iostream>
-//#include "functions.hpp"
 #include "BSTree.hpp"
 
 
@@ -29,9 +28,9 @@ int main()
    
     
    // ActorTree -> print(cout, ActorTree -> Root() -> Right()-> Data());
-   // ActorTree ->printInorder();
+//    ActorTree ->printInorder();
     
-    ActorTree->SortTree(ActorTree->Root(), 'd');
+    ActorTree->SortTree(ActorTree->Root(), 'c');
     
     while (menu != 'x' || menu != 'X'){
         cout << "Binary Search tree for Film Database" << endl;
