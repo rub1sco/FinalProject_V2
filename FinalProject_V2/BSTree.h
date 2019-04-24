@@ -40,7 +40,9 @@ public:
     
     //Added functions by Max M. and Tom L.
     void ReadCSVFile(string filename);
-    void inorderQueue(Node<DATATYPE, KEYTYPE> * node, queue<GeneralData> &heapQueue);
+    void ReadActorCSVFile(string filename);
+    void ReadPictureCSVFile(string filename);
+    void inorderQueue(Node<DATATYPE, KEYTYPE> * node, queue<DATATYPE> &heapQueue);
     void SortTree(Node<DATATYPE, KEYTYPE>* node, char sortType);
     
 };

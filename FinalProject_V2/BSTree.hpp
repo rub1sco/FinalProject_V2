@@ -27,6 +27,7 @@ template <typename DATATYPE, typename KEYTYPE>
 BSTree<DATATYPE, KEYTYPE>::~BSTree() {
     if (root !=nullptr)
         freeNode(root);
+    cout << "Destructor called" << endl;
 }
 
 // Free the node
@@ -40,18 +41,11 @@ void BSTree<DATATYPE, KEYTYPE>::freeNode(Node<DATATYPE, KEYTYPE> * leaf)
 		//recursive call of the leaf's right
 		//now delete the leaf
     
-    if (leaf == root){delete leaf; leaf = nullptr;}
+    if (leaf == root){delete leaf; leaf = nullptr; }
     
-    else if (leaf < root){
-//        deleteNode(leaf, root-> Left() -> key);
-//        deleteNode(leaf -> key);                      //TODO not sure if I should call delete or what to do with "free node" dupe of delete used in deestructor?
-        freeNode(leaf -> Left());
-    }
-    else if (leaf > root) {
-//        deleteNode(leaf, root -> Right() -> key);
-//        deleteNode(leaf -> key);                      //TODO not sure if I should call delete or what to do with "free node" dupe of delete used in deestructor?
-        freeNode(leaf -> Right());
-    }
+    deleteNode(root -> Left() -> Key());
+    deleteNode(root -> Left() -> Key());
+    
 }
 
 // Add a node
@@ -167,9 +161,9 @@ void BSTree<DATATYPE, KEYTYPE>::printInorder(Node<DATATYPE, KEYTYPE> * node)
     printInorder(node->Right());
 }
 
-// creates an inorder queue of the tree's nodes' data
+// creates an inorder queue of the tree's nodes' data       **modified by Max M.
 template <typename DATATYPE, typename KEYTYPE>
-void BSTree<DATATYPE, KEYTYPE>::inorderQueue(Node<DATATYPE, KEYTYPE> * node, queue<GeneralData> &heapQueue){
+void BSTree<DATATYPE, KEYTYPE>::inorderQueue(Node<DATATYPE, KEYTYPE> * node, queue<DATATYPE> &heapQueue){
     
     // base case
     if(node == nullptr)
@@ -295,9 +289,10 @@ template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
     //initializing variables
     std::ifstream infile;
-    int _Year = 0;
+    double _Rating = 0.0;
+    int _Year = 0, _Nominations = 0, _Duration = 0, _MetaCritic = 0;
     bool _Winner = 0;
-    string _Award,_Name, _Film;
+    string _Award,_Name, _Film, _Genre1, _Genre2, _Release, _Synopsis;
 
     //opening file
     infile.open(filename);
@@ -307,9 +302,65 @@ void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
 
     //this gets the first line of the csv file and "trashes" it
     getline(infile, _Award,'\n');
+    
+    if(filename == "actor-actress.csv"){
+        //reads until end of file.
+        while (!infile.eof()) {
+            infile >> _Year;
+            infile.ignore();
+            getline(infile,_Award,',');
+            infile >> _Winner;
+            infile.ignore();
+            getline(infile,_Name,',');
+            getline(infile,_Film,'\n');
+            GeneralData* newEntry = new GeneralData(_Year, _Award, _Winner, _Name, _Film);
+            addNode(_Name, *newEntry);
+        }
+    }
+    else if (filename == "pictures.csv"){
+        while(!infile.eof()){
+            getline(infile, _Name, ',');
+            infile >> _Year;
+            infile >> _Nominations;
+            infile >> _Rating;
+            infile >> _Duration;
+            infile.ignore();
+            getline(infile, _Genre1, ',');
+            getline(infile, _Genre2, ',');
+            getline(infile, _Release, ',');
+            infile >> _MetaCritic;
+            infile.ignore();
+            getline(infile, _Synopsis, '\n');
+
+            GeneralData2* newEntry = new GeneralData2(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
+
+//            addNode(_Name, *newEntry);
+
+        }
+        infile.close();
+        return;
+    }
+    infile.close();
+}
+
+template <typename DATATYPE, typename KEYTYPE>
+void BSTree<DATATYPE,KEYTYPE>::ReadActorCSVFile(string filename){
+    //initializing variables
+    std::ifstream infile;
+    int _Year = 0;
+    bool _Winner = 0;
+    string _Award,_Name, _Film, _Genre1, _Genre2, _Release, _Synopsis;
+    
+    //opening file
+    infile.open(filename);
+    
+    //checks to see if file is open, provides simple error message
+    if(!infile.is_open()){cout << "Error opening file." << endl;}
+    
+    //this gets the first line of the csv file and "trashes" it
+    getline(infile, _Award,'\n');
     //reads until end of file.
     while (!infile.eof()) {
-        //Year,Award,Winner,Name,Film
         infile >> _Year;
         infile.ignore();
         getline(infile,_Award,',');
@@ -318,16 +369,58 @@ void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
         getline(infile,_Name,',');
         getline(infile,_Film,'\n');
         GeneralData* newEntry = new GeneralData(_Year, _Award, _Winner, _Name, _Film);
-        
-        
-      
         addNode(_Name, *newEntry);
     }
-    
     infile.close();
 }
 
-// sorts tree based on a given sort type
+template <typename DATATYPE, typename KEYTYPE>
+void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
+    //initializing variables
+    std::ifstream infile;
+    double _Rating = 0.0;
+    int _Year = 0, _Nominations = 0, _Duration = 0, _MetaCritic = 0;
+    string _Award,_Name, _Film, _Genre1, _Genre2, _Release, _Synopsis;
+    
+    //opening file
+    infile.open(filename);
+    
+    //checks to see if file is open, provides simple error message
+    if(!infile.is_open()){cout << "Error opening file." << endl;}
+    
+    //this gets the first line of the csv file and "trashes" it
+    getline(infile, _Award,'\n');
+            while(!infile.eof()){
+                getline(infile, _Name, ',');
+                
+                infile >> _Year;
+                infile.ignore();
+                infile >> _Nominations;
+                infile.ignore();
+                infile >> _Rating;
+                infile.ignore();
+                infile >> _Duration;
+                infile.ignore();
+                getline(infile, _Genre1, ',');
+                getline(infile, _Genre2, ',');
+                getline(infile, _Release, ',');
+                infile >> _MetaCritic;
+                //handles if there are blank values in MetaCritic value 
+                if (_MetaCritic == NULL) {_MetaCritic = 0; infile.clear();}
+                infile.ignore();
+                getline(infile, _Synopsis, '\n');
+    
+               
+                GeneralData2* newEntry = new GeneralData2(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
+    
+                addNode(_Name, *newEntry);
+    
+            }
+            infile.close();
+
+}
+
+// sorts tree based on a given sort type            **modified by Max M.
 // second parameter:
 //  'a' to sort by year
 //  'b' to sort by award
@@ -337,7 +430,7 @@ template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sortType)
 {
     // create queue to store heap
-    queue<GeneralData> tempQueue;
+    queue<DATATYPE> tempQueue;
     
     // create heap
     inorderQueue(node, tempQueue);
@@ -375,7 +468,7 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
     }
     
     // print new tree
-    printInorder();
+//    printInorder();
     
     
     return;

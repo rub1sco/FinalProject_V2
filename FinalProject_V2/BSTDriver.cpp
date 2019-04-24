@@ -16,11 +16,16 @@ int main()
 {
     char menu = 0;
     string ActorFile = "actor-actress.csv";
+    string PicturesFile = "pictures.csv";
  
 	cout << "Adding Nodes...\n";
     BSTree<GeneralData, string>* ActorTree = new BSTree<GeneralData, string>;
+    BSTree<GeneralData2, string>* PicturesTree = new BSTree<GeneralData2, string>;
    
-    ActorTree -> ReadCSVFile(ActorFile);
+//    ActorTree -> ReadCSVFile(ActorFile);
+    ActorTree -> ReadActorCSVFile(ActorFile);
+    PicturesTree -> ReadPictureCSVFile(PicturesFile);
+    
 //    ActorTree -> deleteNode("Richard Barthelmess");
     
     //test of finding node based on string value.
@@ -29,8 +34,9 @@ int main()
     
    // ActorTree -> print(cout, ActorTree -> Root() -> Right()-> Data());
 //    ActorTree ->printInorder();
+    PicturesTree -> printInorder();
     
-    ActorTree->SortTree(ActorTree->Root(), 'c');
+//    ActorTree->SortTree(ActorTree->Root(), 'c');
     
     while (menu != 'x' || menu != 'X'){
         cout << "Binary Search tree for Film Database" << endl;
@@ -171,7 +177,7 @@ int main()
 
             case 'x':
             case 'X':
-
+                delete ActorTree;
                 return 0;
                 break;
 
@@ -181,6 +187,8 @@ int main()
                 break;
         }
     }
+    
+   
     return 0;
 
 }
