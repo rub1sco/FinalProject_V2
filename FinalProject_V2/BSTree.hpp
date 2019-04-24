@@ -34,18 +34,33 @@ BSTree<DATATYPE, KEYTYPE>::~BSTree() {
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE, KEYTYPE>::freeNode(Node<DATATYPE, KEYTYPE> * leaf)
 {
-	//Student must fill in
-	//if the root is the leaf, delete that leaf
-	// otherwise if the leaf is not null
-		//recursive call of the leaf's left
-		//recursive call of the leaf's right
-		//now delete the leaf
-    
-    if (leaf == root){delete leaf; leaf = nullptr; }
-    
-    deleteNode(root -> Left() -> Key());
-    deleteNode(root -> Left() -> Key());
-    
+
+    //if the root is the leaf, delete that leaf
+    if (root == leaf){
+        delete root;
+        root = nullptr;
+        treeSize = 0;
+        return;
+        
+    }
+    //if the leaf does not == null pointer, check left and right branches recurrsively.
+    if(leaf != nullptr){
+        //recursive call of the leaf's left
+        if(leaf -> Left() != nullptr){
+            freeNode(leaf -> Left());
+        }
+        //recursive call of the leaf's right
+        if(leaf -> Right() != nullptr){
+            freeNode(leaf -> Right());
+        }
+        
+        //now delete the leaf
+        delete leaf;
+        leaf = nullptr;
+     
+    }
+   
+
 }
 
 // Add a node
@@ -284,7 +299,7 @@ Node<DATATYPE, KEYTYPE> * BSTree<DATATYPE, KEYTYPE>::max(Node<DATATYPE, KEYTYPE>
 }
 
 
-// **Added by Tom L.
+// **Added by Tom L.... Not functioning with Multiple datatypes... Broke into two functions per Tree
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
     //initializing variables
@@ -370,6 +385,7 @@ void BSTree<DATATYPE,KEYTYPE>::ReadActorCSVFile(string filename){
         getline(infile,_Film,'\n');
         GeneralData* newEntry = new GeneralData(_Year, _Award, _Winner, _Name, _Film);
         addNode(_Name, *newEntry);
+        treeSize++;
     }
     infile.close();
 }
@@ -416,6 +432,7 @@ void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
                 GeneralData2* newEntry = new GeneralData2(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
     
                 addNode(_Name, *newEntry);
+                treeSize++;
     
             }
             infile.close();

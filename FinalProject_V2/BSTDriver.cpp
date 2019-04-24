@@ -178,6 +178,7 @@ int main()
             case 'x':
             case 'X':
                 delete ActorTree;
+                delete PicturesTree;
                 return 0;
                 break;
 
