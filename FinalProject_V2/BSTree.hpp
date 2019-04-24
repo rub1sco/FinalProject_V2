@@ -374,6 +374,7 @@ void BSTree<DATATYPE,KEYTYPE>::ReadActorCSVFile(string filename){
     infile.close();
 }
 
+//Function is used by the Picture tree.. TODO, merge seperate READCSV files into one function... currently, there is an error with datatype in the combined when trying to add
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
     //initializing variables
@@ -405,6 +406,7 @@ void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
                 getline(infile, _Genre2, ',');
                 getline(infile, _Release, ',');
                 infile >> _MetaCritic;
+                
                 //handles if there are blank values in MetaCritic value 
                 if (_MetaCritic == NULL) {_MetaCritic = 0; infile.clear();}
                 infile.ignore();
