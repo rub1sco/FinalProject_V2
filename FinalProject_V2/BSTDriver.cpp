@@ -18,14 +18,14 @@ int main()
     string ActorFile = "actor-actress.csv";
     string PicturesFile = "pictures.csv";
  
-	cout << "Adding Nodes...\n";
     BSTree<GeneralData, string>* ActorTree = new BSTree<GeneralData, string>;
     BSTree<GeneralData2, string>* PicturesTree = new BSTree<GeneralData2, string>;
    
-//    ActorTree -> ReadCSVFile(ActorFile);
+//    ActorTree -> ReadCSVFile(ActorFile);      //Does not work... delete if cannot fix.
     ActorTree -> ReadActorCSVFile(ActorFile);
+//    ActorTree -> print(cout, ActorTree -> Root() -> Left()-> Data());
     PicturesTree -> ReadPictureCSVFile(PicturesFile);
-    
+//    PicturesTree -> print(cout, PicturesTree -> Root() -> Left()-> Data());
 //    ActorTree -> deleteNode("Richard Barthelmess");
     
     //test of finding node based on string value.
@@ -67,19 +67,88 @@ int main()
         switch (menu) {
             case 'a':
             case 'A':
-                //TODO Add a record to Actor-Actress Database
+                //TODO Add a record to Actor-Actress Database.... must test!!
             {
-
+                int _Year;
+                string _Name, _Award, _Film;
+                bool _bWinner;
+                char _Winner;
+            
+                cout << "Please enter Name of film:";
+                cin >> _Film;
+                cout << endl;
+                cout << "Please enter year the film was released: ";
+                cin >> _Year;
+                cout << endl;
+                cout << "Please enter Award nominated: " ;
+                cin >> _Award;
+                cout << endl;
+                cout << "Did the film win an award?(T/F)";
+                cin >> _Winner;
+                if(_Winner == 'T'){_bWinner = true;}
+                _bWinner = false;
+                cout << endl;
+                cout << "Please enter Actor nominated: ";
+                cin >> _Name;
+                
+                GeneralData* newEntry = new GeneralData(_Year, _Award, _bWinner, _Name, _Film);
+                ActorTree -> addNode(_Name, *newEntry);
+                
             
               break;
             }
 
             case 'b':
             case 'B':
-                //TODO Add a record to movie database
-
+                //TODO Add a record to movie database.... must test!!
+            {
+                int _Year = 0, _Nominations = 0,_Duration = 0, _MetaCritic = 0;
+                double _Rating = 0.0;
+                string _Name, _Genre1, _Genre2, _Release, _Synopsis;
+                
+                cout << "Please enter name of film: ";
+                cin >> _Name;
+                cout << endl;
+                
+                cout << "Please enter year film was released: ";
+                cin >> _Year;
+                cout << endl;
+                
+                cout << "Please enter number of Nominations: ";
+                cin >> _Nominations;
+                cout << endl;
+                
+                cout << "Please enter duration of film: ";
+                cin >> _Duration;
+                cout << endl;
+                
+                cout << "Please enter rating of film: ";
+                cin >> _Rating;
+                cout << endl;
+                
+                cout << "Please enter metacritic rating: ";
+                cin >> _MetaCritic;
+                cout << endl;
+                
+                cout << "Please enter main genre film is classifed as: ";
+                cin >> _Genre1;
+                cout << endl;
+                
+                cout << "Please enter secondary genre film is classifed as: ";
+                cin >> _Genre2;
+                cout << endl;
+                
+                cout << "Please enter brief synopsis of film: ";
+                cin >> _Synopsis;
+                cout << endl;
+                
+                GeneralData2* newEntry = new GeneralData2(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
+                
+                PicturesTree -> addNode(_Name, *newEntry);
+                
+                
                 break;
-
+            }
             case 'c':
             case 'C':
                 //TODO add a record to nominations Database --extra credit--

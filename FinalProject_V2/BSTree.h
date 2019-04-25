@@ -23,6 +23,8 @@ private:
 	void printInorder(Node<DATATYPE, KEYTYPE> * node);
     Node<DATATYPE, KEYTYPE> * findNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * node);
     int treeSize; //Note: Added this, didn't end up using it, left it in case it's useful later
+    void DepthFirstSearch(BSTree<DATATYPE,KEYTYPE>const & Tree, int index,vector<bool> &visited);
+    vector<bool> visited;
 
 public:
     BSTree<DATATYPE, KEYTYPE>();
@@ -44,6 +46,7 @@ public:
     void ReadPictureCSVFile(string filename);
     void inorderQueue(Node<DATATYPE, KEYTYPE> * node, queue<DATATYPE> &heapQueue);
     void SortTree(Node<DATATYPE, KEYTYPE>* node, char sortType);
+    void DepthFirstSearch(string _SearchField);
     
 };
 #endif  //BST

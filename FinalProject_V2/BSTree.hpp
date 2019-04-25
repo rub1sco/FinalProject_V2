@@ -202,8 +202,10 @@ void BSTree<DATATYPE, KEYTYPE>::print(ostream & out, const DATATYPE & data)
     //TODO this should be expandable for other trees?
     out << data.Year << endl;
     out << data.Name << endl;
+  
     out << data.Award << endl;
     out << data.Film << endl;
+//    out << data << endl;
 }
 
 template <typename DATATYPE, typename KEYTYPE>
@@ -454,9 +456,9 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
     // create heap
     inorderQueue(node, tempQueue);
     
-    // delete tree TODO: Currently just sets root point to nullptr, should probably delete entire tree to save memory
-    this->root = nullptr;
-//    delete [] root;
+    //TODO this deletes the tempQueue tree and sets tempQueue to nullptr...
+//    freeNode(tempQueue);
+//    tempQueue = nullptr;
     
     // build new tree using key type selection
     switch(sortType){
@@ -491,4 +493,21 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
     
     
     return;
+}
+
+template <typename DATATYPE, typename KEYTYPE>
+void BSTree<DATATYPE,KEYTYPE>::DepthFirstSearch(string _SearchField){
+    if(root != nullptr){
+        DepthFirstSearch(this, visited);
+    }
+    
+}
+
+template <typename DATATYPE, typename KEYTYPE>
+void BSTree<DATATYPE,KEYTYPE>::DepthFirstSearch(const BSTree<DATATYPE, KEYTYPE> &Tree, int index,vector<bool> &visited){
+    
+    visited[index] = true;
+    
+
+    
 }
