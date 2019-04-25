@@ -17,26 +17,21 @@ int main()
     char menu = 0;
     string ActorFile = "actor-actress.csv";
     string PicturesFile = "pictures.csv";
+    string NominationsFile = "nominations.csv";
  
     BSTree<GeneralData, string>* ActorTree = new BSTree<GeneralData, string>;
     BSTree<GeneralData2, string>* PicturesTree = new BSTree<GeneralData2, string>;
+    BSTree<GeneralData, string>* NominationsTree = new BSTree<GeneralData, string>;
    
 //    ActorTree -> ReadCSVFile(ActorFile);      //Does not work... delete if cannot fix.
     ActorTree -> ReadActorCSVFile(ActorFile);
-//    ActorTree -> print(cout, ActorTree -> Root() -> Left()-> Data());
     PicturesTree -> ReadPictureCSVFile(PicturesFile);
-//    PicturesTree -> print(cout, PicturesTree -> Root() -> Left()-> Data());
-//    ActorTree -> deleteNode("Richard Barthelmess");
+    NominationsTree -> ReadActorCSVFile(NominationsFile);   //TODO for some entries """ appears? ie. """hush...Hush sweet caroline
+    
     
     //test of finding node based on string value.
 //    Node<GeneralData, string> fNode = *ActorTree -> findNode("Louise Dresser");
-   
-    
-   // ActorTree -> print(cout, ActorTree -> Root() -> Right()-> Data());
-//    ActorTree ->printInorder();
-    PicturesTree -> printInorder();
-    
-//    ActorTree->SortTree(ActorTree->Root(), 'c');
+
     
     while (menu != 'x' || menu != 'X'){
         cout << "Binary Search tree for Film Database" << endl;
@@ -67,7 +62,7 @@ int main()
         switch (menu) {
             case 'a':
             case 'A':
-                //TODO Add a record to Actor-Actress Database.... must test!!
+                //Add a record to Actor-Actress Database.... TODO must test!!
             {
                 int _Year;
                 string _Name, _Award, _Film;
@@ -100,7 +95,7 @@ int main()
 
             case 'b':
             case 'B':
-                //TODO Add a record to movie database.... must test!!
+                //Add a record to movie database.... TODO must test!!
             {
                 int _Year = 0, _Nominations = 0,_Duration = 0, _MetaCritic = 0;
                 double _Rating = 0.0;
@@ -192,14 +187,24 @@ int main()
 
             case 'j':
             case 'J':
-                //TODO Sort the Actor-Actress database by any field
-
+                //TODO Sort the Actor-Actress database by any field... test!!!
+            {
+                char userSelection;
+                cout << "Which field would you like to search from? a: year, b: award, c: name, d: film" << endl;
+                cin >> userSelection;
+                
+                ActorTree -> SortTree(userSelection);
+                ActorTree -> printInorder();
                 break;
-
+            }
             case 'k':
             case 'K':
                 //TODO Sort the movie database by any field
-
+                char userSelection;
+                cout << "Which field would you like to search from? a: year, b: award, c: name, d: film" << endl;   //TODO, cases don't work for PicturesTree
+                cin >> userSelection;
+                
+        
                 break;
 
             case 'l':

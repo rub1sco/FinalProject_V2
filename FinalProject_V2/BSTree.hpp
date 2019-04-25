@@ -441,6 +441,16 @@ void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
 
 }
 
+
+template <typename DATATYPE, typename KEYTYPE>
+void BSTree<DATATYPE,KEYTYPE>::SortTree(char sortType){
+    if(root != nullptr){
+        SortTree(root, sortType);
+    }
+}
+
+
+
 // sorts tree based on a given sort type            **modified by Max M.
 // second parameter:
 //  'a' to sort by year
