@@ -66,29 +66,31 @@ int main()
             {
                 int _Year;
                 string _Name, _Award, _Film;
-                bool _bWinner;
+                bool _bWinner = false;
                 char _Winner;
-            
+                cin.ignore();
                 cout << "Please enter Name of film:";
-                cin >> _Film;
+                getline(cin, _Film);
                 cout << endl;
                 cout << "Please enter year the film was released: ";
                 cin >> _Year;
+                cin.ignore();
                 cout << endl;
                 cout << "Please enter Award nominated: " ;
-                cin >> _Award;
+                getline(cin, _Award, '\n');
                 cout << endl;
                 cout << "Did the film win an award?(T/F)";
                 cin >> _Winner;
+                cin.ignore();
                 if(_Winner == 'T'){_bWinner = true;}
-                _bWinner = false;
+//                _bWinner = false;
                 cout << endl;
                 cout << "Please enter Actor nominated: ";
-                cin >> _Name;
+                getline(cin, _Name, '\n');
                 
                 GeneralData* newEntry = new GeneralData(_Year, _Award, _bWinner, _Name, _Film);
                 ActorTree -> addNode(_Name, *newEntry);
-                
+//                ActorTree -> printInorder();
             
               break;
             }
@@ -194,16 +196,16 @@ int main()
                 cin >> userSelection;
                 
                 ActorTree -> SortTree(userSelection);
-                ActorTree -> printInorder();
+//                ActorTree -> printInorder();
                 break;
             }
             case 'k':
             case 'K':
                 //TODO Sort the movie database by any field
                 char userSelection;
-                cout << "Which field would you like to search from? a: year, b: award, c: name, d: film" << endl;   //TODO, cases don't work for PicturesTree
+                cout << "Which field would you like to search from? a: year, b: award, c: name, d: film" << endl;
                 cin >> userSelection;
-                
+//                PicturesTree -> SortTree(userSelection);  //TODO, cases don't work for PicturesTree
         
                 break;
 
