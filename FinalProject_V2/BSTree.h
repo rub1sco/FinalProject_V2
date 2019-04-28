@@ -22,8 +22,10 @@ private:
     void freeNode(Node<DATATYPE, KEYTYPE> * leaf);
 	void printInorder(Node<DATATYPE, KEYTYPE> * node);
     Node<DATATYPE, KEYTYPE> * findNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * node);
+    
+    
     int treeSize; //Note: Added this, didn't end up using it, left it in case it's useful later
-    void DepthFirstSearch(BSTree<DATATYPE,KEYTYPE>const & Tree, int index,vector<bool> &visited);
+    void CompleteSearch(Node<DATATYPE,KEYTYPE>const * Node, int index,vector<bool> &visited);
     void SortTree(Node<DATATYPE, KEYTYPE>* node, char sortType);
     vector<bool> visited;
 
@@ -47,7 +49,7 @@ public:
     void ReadPictureCSVFile(string filename);
     void inorderQueue(Node<DATATYPE, KEYTYPE> * node, queue<DATATYPE> &heapQueue);
     void SortTree(char sortType);
-    void DepthFirstSearch(string _SearchField);
+    void CompleteSearch(string SearchKey);
     
 };
 #endif  //BST

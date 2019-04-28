@@ -7,7 +7,7 @@ Status: works with completed and correct BSTree.cpp
 but do NOT compile it (or add it to the project)*/
 #include <iostream>
 #include <cctype>
-#include "functions.hpp"
+//#include "functions.hpp"
 #include "BSTree.hpp"
 
 
@@ -261,6 +261,7 @@ int main()
             case 'X':
                 delete ActorTree;
                 delete PicturesTree;
+                delete NominationsTree;
                 return 0;
                 break;
 

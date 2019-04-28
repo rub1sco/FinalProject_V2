@@ -303,65 +303,6 @@ Node<DATATYPE, KEYTYPE> * BSTree<DATATYPE, KEYTYPE>::max(Node<DATATYPE, KEYTYPE>
 }
 
 
-// **Added by Tom L.... Not functioning with Multiple datatypes... Broke into two functions per Tree
-template <typename DATATYPE, typename KEYTYPE>
-void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
-    //initializing variables
-    std::ifstream infile;
-    double _Rating = 0.0;
-    int _Year = 0, _Nominations = 0, _Duration = 0, _MetaCritic = 0;
-    bool _Winner = 0;
-    string _Award,_Name, _Film, _Genre1, _Genre2, _Release, _Synopsis;
-
-    //opening file
-    infile.open(filename);
-
-    //checks to see if file is open, provides simple error message
-    if(!infile.is_open()){cout << "Error opening file." << endl;}
-
-    //this gets the first line of the csv file and "trashes" it
-    getline(infile, _Award,'\n');
-    
-    if(filename == "actor-actress.csv"){
-        //reads until end of file.
-        while (!infile.eof()) {
-            infile >> _Year;
-            infile.ignore();
-            getline(infile,_Award,',');
-            infile >> _Winner;
-            infile.ignore();
-            getline(infile,_Name,',');
-            getline(infile,_Film,'\n');
-            GeneralData* newEntry = new GeneralData(_Year, _Award, _Winner, _Name, _Film);
-            addNode(_Name, *newEntry);
-        }
-    }
-    else if (filename == "pictures.csv"){
-        while(!infile.eof()){
-            getline(infile, _Name, ',');
-            infile >> _Year;
-            infile >> _Nominations;
-            infile >> _Rating;
-            infile >> _Duration;
-            infile.ignore();
-            getline(infile, _Genre1, ',');
-            getline(infile, _Genre2, ',');
-            getline(infile, _Release, ',');
-            infile >> _MetaCritic;
-            infile.ignore();
-            getline(infile, _Synopsis, '\n');
-
-            GeneralData* newEntry = new GeneralData(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
-
-            addNode(_Name, *newEntry);
-
-        }
-        infile.close();
-        return;
-    }
-    infile.close();
-}
-
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE,KEYTYPE>::ReadActorCSVFile(string filename){
     //initializing variables
@@ -578,18 +519,23 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
 }
 
 template <typename DATATYPE, typename KEYTYPE>
-void BSTree<DATATYPE,KEYTYPE>::DepthFirstSearch(string _SearchField){
-    if(root != nullptr){
-        DepthFirstSearch(this, visited);
-    }
+void BSTree<DATATYPE,KEYTYPE>::CompleteSearch(string SearchKey){
+    vector<bool> visited;
+    int index;
     
+    if (root != nullptr){
+        CompleteSearch(root, index , visited);
+    }
 }
 
 template <typename DATATYPE, typename KEYTYPE>
-void BSTree<DATATYPE,KEYTYPE>::DepthFirstSearch(const BSTree<DATATYPE, KEYTYPE> &Tree, int index,vector<bool> &visited){
+void BSTree<DATATYPE,KEYTYPE>::CompleteSearch(const Node<DATATYPE, KEYTYPE> *Node, int index, vector<bool> &visited){
     
+    //indicates if node has been visited
     visited[index] = true;
     
-
+    //initializes stack
+//    stack<Node<DATATYPE, KEYTYPE>> tempStack;
+    
     
 }
