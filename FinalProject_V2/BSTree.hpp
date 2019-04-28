@@ -170,7 +170,9 @@ void BSTree<DATATYPE, KEYTYPE>::printInorder(Node<DATATYPE, KEYTYPE> * node)
     printInorder(node->Left());
     
     // print node key
-    cout << node->Key() << endl;
+    if(node->Key() != ""){ //ensures blank fields are not printed 
+        cout << node->Key() << endl;
+    }
     
     // recurse to right child
     printInorder(node->Right());
@@ -349,9 +351,9 @@ void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
             infile.ignore();
             getline(infile, _Synopsis, '\n');
 
-            GeneralData2* newEntry = new GeneralData2(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
+            GeneralData* newEntry = new GeneralData(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
 
-//            addNode(_Name, *newEntry);
+            addNode(_Name, *newEntry);
 
         }
         infile.close();
@@ -431,7 +433,7 @@ void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
                 getline(infile, _Synopsis, '\n');
     
                
-                GeneralData2* newEntry = new GeneralData2(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
+                GeneralData* newEntry = new GeneralData(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
     
                 addNode(_Name, *newEntry);
                 treeSize++;
@@ -453,10 +455,20 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(char sortType){
 
 // sorts tree based on a given sort type            **modified by Max M.
 // second parameter:
-//  'a' to sort by year
-//  'b' to sort by award
-//  'c' to sort by name
-//  'd' to sorty by film
+//  'a' to sort by Year (actors)
+//  'A' ''  ''  '' Year (pictures)
+//  'b' ''  ''  '' Film (actors)
+//  'B' ''  ''  '' Film (pictures)
+//  'c' ''  ''  '' Name (actors)
+//  'd' ''  ''  '' Award (actors)
+//  'C' ''  ''  '' Nominations (pictures)
+//  'D' ''  ''  '' Rating (pictures)
+//  'E' ''  ''  '' Duration (pictures)
+//  'F' ''  ''  '' Genre1 (pictures)
+//  'G' ''  ''  '' Genre2 (pictures)
+//  'H' ''  ''  '' Release (pictures)
+//  'I' ''  ''  '' MetaCritic (pictures)
+//TODO: Doesn't entirely work when to_string function is used to change an int to a string, it mostly works, but it puts some three digit numbers before two digit numbers i.e if you sort pictures by Metacritic, it puts 100 in front of the 90s
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sortType)
 {
@@ -466,9 +478,8 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
     // create heap
     inorderQueue(node, tempQueue);
     
-    //TODO this deletes the tempQueue tree and sets tempQueue to nullptr...
-//    freeNode(tempQueue);
-//    tempQueue = nullptr;
+    // deletes original tree TODO: currently just sets root to nullptr, does not actually free all nodes
+    root = nullptr;
     
     // build new tree using key type selection
     switch(sortType){
@@ -478,9 +489,21 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
                 tempQueue.pop();
             }
             break;
+        case 'A': //sorts by year
+            while(!tempQueue.empty()){
+                addNode(to_string(tempQueue.front().Year), tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
         case 'b': //sorts by award
             while(!tempQueue.empty()){
-                addNode(tempQueue.front().Award, tempQueue.front());
+                addNode(tempQueue.front().Film, tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+        case 'B': //sorts by award
+            while(!tempQueue.empty()){
+                addNode(tempQueue.front().Film, tempQueue.front());
                 tempQueue.pop();
             }
             break;
@@ -492,14 +515,63 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
             break;
         case 'd': //sorts by film
             while(!tempQueue.empty()){
-                addNode(tempQueue.front().Film, tempQueue.front());
+                addNode(tempQueue.front().Award, tempQueue.front());
                 tempQueue.pop();
             }
             break;
+        case 'C': //sorts by Nominations
+            while(!tempQueue.empty()){
+                addNode(to_string(tempQueue.front().Nominations), tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+        case 'D': //sorts by Rating
+            while(!tempQueue.empty()){
+                addNode(to_string(tempQueue.front().Rating), tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+        case 'E': //sorts by Duration
+            while(!tempQueue.empty()){
+                addNode(to_string(tempQueue.front().Duration), tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+        case 'F': //sorts by Genre1
+            while(!tempQueue.empty()){
+                addNode(tempQueue.front().Genre1, tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+        case 'G': //sorts by Genre2
+            while(!tempQueue.empty()){
+                addNode(tempQueue.front().Genre2, tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+        case 'H': //sorts by MetaCritic
+            while(!tempQueue.empty()){
+                addNode(tempQueue.front().Release, tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+        case 'I': //sorts by MetaCritic
+            while(!tempQueue.empty()){
+                addNode(to_string(tempQueue.front().MetaCritic), tempQueue.front());
+                tempQueue.pop();
+            }
+            break;
+        default:
+            cout << "Invalid sort selction, tree not sorted." << endl;
+            break;
     }
     
+    //TODO this deletes the tempQueue tree and sets tempQueue to nullptr...
+    //    freeNode(tempQueue);
+    //    tempQueue = nullptr;
+    
     // print new tree
-//    printInorder();
+    printInorder();
     
     
     return;

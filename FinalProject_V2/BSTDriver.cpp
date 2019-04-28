@@ -6,8 +6,9 @@ Status: works with completed and correct BSTree.cpp
 /*Template Directions: #include "BSTREEInt.hpp"
 but do NOT compile it (or add it to the project)*/
 #include <iostream>
+#include <cctype>
+#include "functions.hpp"
 #include "BSTree.hpp"
-
 
 
 using namespace std;
@@ -20,13 +21,16 @@ int main()
     string NominationsFile = "nominations.csv";
  
     BSTree<GeneralData, string>* ActorTree = new BSTree<GeneralData, string>;
-    BSTree<GeneralData2, string>* PicturesTree = new BSTree<GeneralData2, string>;
+    BSTree<GeneralData, string>* PicturesTree = new BSTree<GeneralData, string>;
     BSTree<GeneralData, string>* NominationsTree = new BSTree<GeneralData, string>;
    
 //    ActorTree -> ReadCSVFile(ActorFile);      //Does not work... delete if cannot fix.
     ActorTree -> ReadActorCSVFile(ActorFile);
     PicturesTree -> ReadPictureCSVFile(PicturesFile);
     NominationsTree -> ReadActorCSVFile(NominationsFile);   //TODO for some entries """ appears? ie. """hush...Hush sweet caroline
+    
+    // test print tree function
+    //PicturesTree -> printInorder();
     
     
     //test of finding node based on string value.
@@ -56,11 +60,13 @@ int main()
         cout << "X: Exit" << endl;
 
         cout << "Please enter your selection: ";
+        
         cin >> menu;
+        menu = toupper(menu); //allows menu to still function if a lowercase letter is entered by user
+        
         cout << endl;
 
         switch (menu) {
-            case 'a':
             case 'A':
                 //Add a record to Actor-Actress Database.... TODO must test!!
             {
@@ -82,7 +88,7 @@ int main()
                 cout << "Did the film win an award?(T/F)";
                 cin >> _Winner;
                 cin.ignore();
-                if(_Winner == 'T'){_bWinner = true;}
+                if(_Winner == 'T' || _Winner == 't'){_bWinner = true;}
 //                _bWinner = false;
                 cout << endl;
                 cout << "Please enter Actor nominated: ";
@@ -95,7 +101,6 @@ int main()
               break;
             }
 
-            case 'b':
             case 'B':
                 //Add a record to movie database.... TODO must test!!
             {
@@ -139,119 +144,120 @@ int main()
                 cin >> _Synopsis;
                 cout << endl;
                 
-                GeneralData2* newEntry = new GeneralData2(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
+                GeneralData* newEntry = new GeneralData(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
                 
                 PicturesTree -> addNode(_Name, *newEntry);
                 
                 
                 break;
             }
-            case 'c':
             case 'C':
                 //TODO add a record to nominations Database --extra credit--
 
                 break;
 
-            case 'd':
             case 'D':
                 //TODO search for a record in Actor-Actress Database and MODIFY field
 
                 break;
 
-            case 'e':
             case 'E':
                 //TODO search for a record in movie database and MODIFY field.
 
                 break;
 
-            case 'f':
             case 'F':
                 //TODO search for a record in Nominations Database and MODIFY field. --extra credit--
                 break;
 
-            case 'g':
             case 'G':
                 //TODO search for record in Actor Actress Database and DELETE the field
 
                 break;
 
-            case 'h':
             case 'H':
                 //TODO search for a record in movie database and DELETE field
 
                 break;
 
-            case 'i':
             case 'I':
                 //TODO search for a record in the Nominations Database and DELETE field --extra credit--
 
                 break;
 
-            case 'j':
             case 'J':
-                //TODO Sort the Actor-Actress database by any field... test!!!
             {
                 char userSelection;
-                cout << "Which field would you like to search from? a: year, b: award, c: name, d: film" << endl;
+                cout << "Which field would you like to sort by?" << endl
+                << "A: Year" << endl
+                << "B: Film" << endl
+                << "C: Name" << endl
+                << "D: Award" << endl;
+            
                 cin >> userSelection;
+                userSelection = tolower(userSelection);
                 
                 ActorTree -> SortTree(userSelection);
-//                ActorTree -> printInorder();
+
                 break;
+                
             }
-            case 'k':
             case 'K':
-                //TODO Sort the movie database by any field
+            {
                 char userSelection;
-                cout << "Which field would you like to search from? a: year, b: award, c: name, d: film" << endl;
+                cout << "Which field would you like to sort by?" << endl
+                << "A: Year" << endl
+                << "B: Film" << endl
+                << "C: Nominations" << endl
+                << "D: Rating" << endl
+                << "E: Duration" << endl
+                << "F: Genre1" << endl
+                << "G: Genre2" << endl
+                << "H: Release" << endl
+                << "I: MetaCritic" << endl;
+                
                 cin >> userSelection;
-//                PicturesTree -> SortTree(userSelection);  //TODO, cases don't work for PicturesTree
+                userSelection = toupper(userSelection);
+                
+                PicturesTree -> SortTree(userSelection);
         
                 break;
-
-            case 'l':
+            }
             case 'L':
                 //TODO Sort the Nominations databse by any field --extra credit--
 
                 break;
 
-            case 'm':
             case 'M':
                 //TODO complete search the Actor-Actress database
 
                 break;
 
-            case 'n':
             case 'N':
                 //TODO complete search the movie database
 
                 break;
 
-            case 'o':
             case 'O':
                 //TODO complete search the Nominations database --extra credit--
 
                 break;
 
-            case 'p':
             case 'P':
                 //TODO Partial search the Actor-Actress database
 
                 break;
 
-            case 'q':
             case 'Q':
                 //TODO partial search the Movie database
 
                 break;
 
-            case 'r':
             case 'R':
                 //TODO Partial search the nomiations Database --Extra credit--
 
                 break;
 
-            case 'x':
             case 'X':
                 delete ActorTree;
                 delete PicturesTree;

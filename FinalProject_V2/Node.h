@@ -9,9 +9,77 @@ using namespace std;
 // A tree node class for ints
 
 //Placeholder for a composite data type
+struct GeneralData
+{
+    int Year;
+    string Award;
+    bool Winner;
+    string Name;
+    string Film;
+    int Nominations;
+    double Rating;
+    int Duration;
+    string Genre1;
+    string Genre2;
+    string Release;
+    int MetaCritic;
+    string Synopsis;
+    
+    //constructors
+    GeneralData(){
+        Year = 0;
+        Award = "";
+        Winner = "";
+        Name = "";
+        Film = "";
+        Nominations = 0;
+        Rating =  0.0;
+        Duration = 0;
+        Genre1 = "";
+        Genre2 = "";
+        Release = "";
+        MetaCritic = 0;
+        Synopsis = "";
+    }
+    
+    // for actor-actress tree
+    GeneralData(int _year, string _award, bool _winner, string _name, string _film){
+        Year = _year;
+        Award = _award;
+        Winner = _winner;
+        Name = _name;
+        Film = _film;
+        Nominations = 0;
+        Rating =  0.0;
+        Duration = 0;
+        Genre1 = "";
+        Genre2 = "";
+        Release = "";
+        MetaCritic = 0;
+        Synopsis = "";
+    }
+    
+    // for pictures tree
+    GeneralData(string _Film, int _Year, int _Nominations, double _Rating, int _Duration, string _Genre1, string _Genre2, string _Release, int _MetaCritic, string _Synopsis){
+        Film = _Film;
+        Year = _Year;
+        Nominations = _Nominations;
+        Rating = _Rating;
+        Duration = _Duration;
+        Genre1 = _Genre1;
+        Genre2 = _Genre2;
+        Release = _Release;
+        MetaCritic = _MetaCritic;
+        Synopsis = _Synopsis;
+        Award = "";
+        Winner = "";
+        Name = "";
+    }
+    
+};
 
 //Datatype for Actor Tree
-struct GeneralData
+/*struct GeneralData
 {
     int Year;
     string Award;
@@ -32,12 +100,12 @@ struct GeneralData
         Name = _name;
         Film = _film;
     }
-};
+};*/
 
 //DataType for Pictures Tree
-struct GeneralData2{
+/*struct GeneralData2{
 
-    string Name;
+    string Film;
     int Year;
     int Nominations;
     double Rating;
@@ -50,7 +118,7 @@ struct GeneralData2{
     
     //constructors
     GeneralData2(){
-        Name = "";
+        Film = "";
         Year = 0;
         Nominations = 0;
         Rating =  0.0;
@@ -62,7 +130,7 @@ struct GeneralData2{
         Synopsis = "";
     }
     GeneralData2(string _Name, int _Year, int _Nominations, double _Rating, int _Duration, string _Genre1, string _Genre2, string _Release, int _MetaCritic, string _Synopsis){
-        Name = _Name;
+        Film = _Name;
         Year = _Year;
         Nominations = _Nominations;
         Rating = _Rating;
@@ -74,7 +142,7 @@ struct GeneralData2{
         Synopsis = _Synopsis;
     }
     
-};
+};*/
 
 
 //Bina*ry Tree Node
