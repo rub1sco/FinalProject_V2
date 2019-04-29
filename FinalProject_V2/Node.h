@@ -8,7 +8,7 @@ using namespace std;
 
 // A tree node class for ints
 
-//Placeholder for a composite data type
+//Composite data type for BSTs
 struct GeneralData
 {
     int Year;
@@ -74,6 +74,39 @@ struct GeneralData
         Award = "";
         Winner = "";
         Name = "";
+    }
+    
+    //overload << operator to print all non-empty fields
+    friend ostream &operator<< (ostream &output, const GeneralData &_GD) {
+        
+        //If Genre1 is empty, print Actor Tree data
+        if(_GD.Genre1 == ""){
+            output << "Name: " << _GD.Name << endl
+            << "Film: " << _GD.Film << endl
+            << "Award: " << _GD.Award << endl;
+            
+            if(_GD.Winner == true)
+                output << "Win: Yes " << endl;
+            else
+                output << "Win: No " << endl;
+            
+            output << "Year: " << _GD.Year << endl << endl;
+        }
+        
+        // otherwise print Picture tree data NOTE: Does not print synopsis because that seemed obnoxious
+        else{
+            output << "Film: " << _GD.Film << endl
+            << "Year: " << _GD.Year << endl
+            << "Nominations: " << _GD.Nominations << endl
+            << "Rating: " << _GD.Rating << endl
+            << "Duration: " << _GD.Duration << " min" << endl
+            << "Genre 1: " << _GD.Genre1 << endl
+            << "Genre 2: " << _GD.Genre2 << endl
+            << "Release: " << _GD.Release << endl
+            << "MetaCritic: " << _GD.MetaCritic << endl << endl;
+        }
+            
+        return output;
     }
     
 };
@@ -145,7 +178,7 @@ struct GeneralData
 };*/
 
 
-//Bina*ry Tree Node
+//Binary Tree Node
 template <typename DATATYPE, typename KEYTYPE>
 class Node {
 private:
@@ -166,6 +199,8 @@ public:
     Node<DATATYPE, KEYTYPE> * Left() { return left; };
     Node<DATATYPE, KEYTYPE> * Right() { return right; };
     Node<DATATYPE, KEYTYPE> * Parent() { return parent; };
+    
+    void printData(){std::cout << data;};
 };
 
 #endif

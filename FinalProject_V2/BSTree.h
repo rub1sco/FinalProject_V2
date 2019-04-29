@@ -9,9 +9,6 @@ using namespace std;
 
 #include "Node.h"
 
-
-
-
 // Binary Search Tree class
 template <typename DATATYPE, typename KEYTYPE>
 class BSTree {
@@ -50,6 +47,7 @@ public:
     void inorderQueue(Node<DATATYPE, KEYTYPE> * node, queue<DATATYPE> &heapQueue);
     void SortTree(char sortType);
     void CompleteSearch(string SearchKey);
+    void MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector); //searches and returns vector of all nodes with matching keys
     
 };
 #endif  //BST

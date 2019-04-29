@@ -354,7 +354,7 @@ void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
     getline(infile, _Award,'\n');
             while(!infile.eof()){
                 getline(infile, _Name, ',');
-                
+                _Name.erase(_Name.begin());
                 infile >> _Year;
                 infile.ignore();
                 infile >> _Nominations;
@@ -369,7 +369,7 @@ void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
                 infile >> _MetaCritic;
                 
                 //handles if there are blank values in MetaCritic value 
-                if (_MetaCritic == NULL) {_MetaCritic = 0; infile.clear();}
+                if (_MetaCritic == NULL) {_MetaCritic = 0.0; infile.clear();}
                 infile.ignore();
                 getline(infile, _Synopsis, '\n');
     
@@ -397,11 +397,11 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(char sortType){
 // sorts tree based on a given sort type            **modified by Max M.
 // second parameter:
 //  'a' to sort by Year (actors)
-//  'A' ''  ''  '' Year (pictures)
 //  'b' ''  ''  '' Film (actors)
-//  'B' ''  ''  '' Film (pictures)
 //  'c' ''  ''  '' Name (actors)
 //  'd' ''  ''  '' Award (actors)
+//  'A' ''  ''  '' Year (pictures)
+//  'B' ''  ''  '' Film (pictures)
 //  'C' ''  ''  '' Nominations (pictures)
 //  'D' ''  ''  '' Rating (pictures)
 //  'E' ''  ''  '' Duration (pictures)
@@ -422,7 +422,7 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
     // deletes original tree TODO: currently just sets root to nullptr, does not actually free all nodes
     root = nullptr;
     
-    // build new tree using key type selection
+    // build new tree from heap using key type selection
     switch(sortType){
         case 'a': //sorts by year
             while(!tempQueue.empty()){
@@ -512,7 +512,7 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
     //    tempQueue = nullptr;
     
     // print new tree
-    printInorder();
+    //printInorder();
     
     
     return;
@@ -537,5 +537,38 @@ void BSTree<DATATYPE,KEYTYPE>::CompleteSearch(const Node<DATATYPE, KEYTYPE> *Nod
     //initializes stack
 //    stack<Node<DATATYPE, KEYTYPE>> tempStack;
     
+    
+}
+
+template <typename DATATYPE, typename KEYTYPE>
+void BSTree<DATATYPE, KEYTYPE>::MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector){
+    
+    //Base Case (end once leaf is reached)
+    if(Node == nullptr){
+        return;
+    }
+    
+    // if node key matches search key
+    if(Node->Key() == SearchKey){
+        // add node to vector
+        ReturnVector.push_back(Node);
+        
+        // recurse down left branch (to find multiples)
+        MaxsSearch(Node->Left(), SearchKey, ReturnVector);
+        
+        // recurse down right branch (to find multiples
+        MaxsSearch(Node->Right(), SearchKey, ReturnVector);
+    }
+    
+    // if nod key does not match search key
+    else if(Node->Key() < SearchKey){
+        
+        // recurse down right branch
+        MaxsSearch(Node->Right(), SearchKey, ReturnVector);
+    }
+    else
+        
+        // recurse down left branch
+        MaxsSearch(Node->Left(), SearchKey, ReturnVector);
     
 }
