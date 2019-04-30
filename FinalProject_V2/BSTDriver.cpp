@@ -69,6 +69,7 @@ int main()
 
         switch (menu) {
             case 'A':
+            case 'a':
                 //Add a record to Actor-Actress Database.... TODO must test!!
             {
                 int _Year;
@@ -104,6 +105,7 @@ int main()
             }
 
             case 'B':
+            case 'b':
                 //Add a record to movie database.... TODO must test!!
             {
                 
@@ -163,11 +165,13 @@ int main()
                 break;
             }
             case 'C':
+            case 'c':
                 //TODO add a record to nominations Database --extra credit--
 
                 break;
 
             case 'D':{
+            case 'd':
                 // testing status: only vaguely tested
                 // test notes: removed the first character from Genre2 for some reason
                 // determine which field user would like to search
@@ -192,7 +196,7 @@ int main()
                 
                 //sort according to user selection
                 ActorTree->SortTree(userSelection);
-                ActorTree->printInorder();
+//                ActorTree->printInorder();
                 
                 // get search term from user
                 string SearchKey;
@@ -271,7 +275,9 @@ int main()
                 // exit switch
                 break;
             }
-            case 'E':{
+            case 'E':
+            case 'e':
+            {
                 // testing status: only vaguely tested
                 // determine which field user would like to search
                 char userSelection;
@@ -406,25 +412,30 @@ int main()
                 break;
             }
             case 'F':
+            case 'f':
                 //TODO search for a record in Nominations Database and MODIFY field. --extra credit--
                 break;
 
             case 'G':
+            case 'g':
                 //TODO search for record in Actor Actress Database and DELETE the field
 
                 break;
 
             case 'H':
+            case 'h':
                 //TODO search for a record in movie database and DELETE field
 
                 break;
 
             case 'I':
+            case 'i':
                 //TODO search for a record in the Nominations Database and DELETE field --extra credit--
 
                 break;
 
             case 'J':
+            case 'j':
             {
                 char userSelection;
                 cout << "Which field would you like to sort by?" << endl
@@ -442,6 +453,7 @@ int main()
                 
             }
             case 'K':
+            case 'k':
             {
                 char userSelection;
                 cout << "Which field would you like to sort by?" << endl
@@ -463,41 +475,49 @@ int main()
                 break;
             }
             case 'L':
+            case 'l':
                 //TODO Sort the Nominations databse by any field --extra credit--
 
                 break;
 
             case 'M':
+            case 'm':
                 //TODO complete search the Actor-Actress database
 
                 break;
 
             case 'N':
+            case 'n':
                 //TODO complete search the movie database
 
                 break;
 
             case 'O':
+            case 'o':
                 //TODO complete search the Nominations database --extra credit--
 
                 break;
 
             case 'P':
+            case 'p':
                 //TODO Partial search the Actor-Actress database
 
                 break;
 
             case 'Q':
+            case 'q':
                 //TODO partial search the Movie database
 
                 break;
 
             case 'R':
+            case 'r':
                 //TODO Partial search the nomiations Database --Extra credit--
 
                 break;
 
             case 'X':
+            case 'x':
                 delete ActorTree;
                 delete PicturesTree;
                 delete NominationsTree;
