@@ -24,7 +24,7 @@ private:
     int treeSize; //Note: Added this, didn't end up using it, left it in case it's useful later
     void CompleteSearch(Node<DATATYPE,KEYTYPE>const * Node, int index,vector<bool> &visited);
     void SortTree(Node<DATATYPE, KEYTYPE>* node, char sortType);
-    vector<bool> visited;
+    void MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector);
 
 public:
     BSTree<DATATYPE, KEYTYPE>();
@@ -47,7 +47,8 @@ public:
     void inorderQueue(Node<DATATYPE, KEYTYPE> * node, queue<DATATYPE> &heapQueue);
     void SortTree(char sortType);
     void CompleteSearch(string SearchKey);
-    void MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector); //searches and returns vector of all nodes with matching keys
+//    void MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector); //searches and returns vector of all nodes with matching keys
+    vector<Node<DATATYPE,KEYTYPE>*> MaxsSearch(string SearchKey);
     
 };
 #endif  //BST

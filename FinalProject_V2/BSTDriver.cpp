@@ -207,8 +207,8 @@ int main()
                 // create vector to hold found results
                 vector<Node<GeneralData, string>*> SearchVector;
                 
-                // search tree
-                ActorTree->MaxsSearch(ActorTree->Root(), SearchKey, SearchVector);
+                // sets Search Veector to returned vector of MaxsSearch
+                SearchVector = ActorTree->MaxsSearch(SearchKey);
                 
                 // respond appropriately if no results are found
                 if(SearchVector.empty()){
@@ -323,7 +323,7 @@ int main()
                 vector<Node<GeneralData, string>*> SearchVector;
                 
                 // search tree
-                PicturesTree->MaxsSearch(PicturesTree->Root(), SearchKey, SearchVector);
+                PicturesTree->MaxsSearch(SearchKey);
                 
                 // respond appropriately if no results are found
                 if(SearchVector.empty()){

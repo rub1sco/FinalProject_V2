@@ -541,6 +541,17 @@ void BSTree<DATATYPE,KEYTYPE>::CompleteSearch(const Node<DATATYPE, KEYTYPE> *Nod
 }
 
 template <typename DATATYPE, typename KEYTYPE>
+vector<Node<DATATYPE,KEYTYPE>*> BSTree<DATATYPE, KEYTYPE>::MaxsSearch(string SearchKey){
+    vector<Node<DATATYPE, KEYTYPE>*> searchVector;
+    
+    if(root != nullptr){
+        MaxsSearch(root, SearchKey, searchVector);
+    }
+    
+    return searchVector;
+}
+
+template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE, KEYTYPE>::MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector){
     
     //Base Case (end once leaf is reached)
