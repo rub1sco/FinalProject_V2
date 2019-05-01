@@ -420,7 +420,7 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
     inorderQueue(node, tempQueue);
     
     // deletes original tree TODO: currently just sets root to nullptr, does not actually free all nodes
-    root = nullptr;
+    freeNode(this->Root());
     
     // build new tree from heap using key type selection
     switch(sortType){

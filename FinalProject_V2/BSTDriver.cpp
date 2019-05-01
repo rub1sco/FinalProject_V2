@@ -437,6 +437,7 @@ int main()
                 userSelection = tolower(userSelection);
                 
                 ActorTree -> SortTree(userSelection);
+                ActorTree -> printInorder();
 
                 break;
                 
@@ -459,6 +460,7 @@ int main()
                 userSelection = toupper(userSelection);
                 
                 PicturesTree -> SortTree(userSelection);
+                PicturesTree -> printInorder();
         
                 break;
             }
