@@ -89,9 +89,15 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * l
         //if left node is empty, insert node.
         if (leaf -> Left() == nullptr){
             Node<DATATYPE,KEYTYPE>* LeftChild = new Node<DATATYPE,KEYTYPE>;
+            //sets left child's Data
             LeftChild -> setData(data);
+            //sets left child's Key
             LeftChild -> setKey(key);
+            
+            //sets leaf to left Child
             leaf -> setLeft(LeftChild);
+            
+            //sets left Child's parent to leaf
             LeftChild -> setParent(leaf);
         }
         else{
@@ -103,9 +109,16 @@ void BSTree<DATATYPE, KEYTYPE>::addNode(KEYTYPE key, Node<DATATYPE, KEYTYPE> * l
         //if right node is empty, insert as right child
         if (leaf -> Right() == nullptr){
             Node<DATATYPE,KEYTYPE>* RightChild = new Node<DATATYPE,KEYTYPE>;
+            //sets Right Child's data
             RightChild -> setData(data);
+            
+            //sets Right child key
             RightChild -> setKey(key);
+            
+            //sets leaf's right child to RightChild
             leaf -> setRight(RightChild);
+            
+            //Sets Right Child's Parent to leaf
             RightChild -> setParent(leaf);
         }
         else{
@@ -197,25 +210,10 @@ void BSTree<DATATYPE, KEYTYPE>::inorderQueue(Node<DATATYPE, KEYTYPE> * node, que
 }
 
 
-//Prints one Actor node's info  Need to expand for other tree info
-template <typename DATATYPE, typename KEYTYPE>
-void BSTree<DATATYPE, KEYTYPE>::print(ostream & out, const DATATYPE & data)
-{
-    //TODO this should be expandable for other trees?
-    out << data.Year << endl;
-    out << data.Name << endl;
-  
-    out << data.Award << endl;
-    out << data.Film << endl;
-//    out << data << endl;
-}
-
-
 
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE, KEYTYPE>::deleteNode(KEYTYPE key)
 {
-//    setRoot(deleteNode(Root(), key));
     deleteNode(root, key);
 }
 
@@ -340,81 +338,46 @@ void BSTree<DATATYPE,KEYTYPE>::ReadActorCSVFile(string filename){
             string temp2;
             getline(infile, _Name, '"');
             _Name = temp + ", " + _Name;
+            
+            //error handles if Name has multiple """
             if(_Name[0] == '"'){
+                //stores _Name as temp
                 temp = _Name;
+                //deletes first two chars of temp
                 temp.erase(0,2);
+                
+                //creates stringstream variable of temp
                 istringstream stringstream(temp);
                 
+                //parses _Name without """ in front, stops at "
                 getline(stringstream, _Name, '"');
+                //ignores ','
                 stringstream.ignore();
+                //reads rest of title
                 getline(stringstream, temp2, '"');
-                _Name = _Name + temp2;
                 
-            
+                //adds the two strings together for full Name
+                _Name = _Name + temp2;
+                //ignores ','
                 stringstream.ignore();
-//                stringstream.ignore();
+                //reads _Film info
                 getline(stringstream, _Film, '\n');
             }
         }
-        
-//        infile.ignore();
+        //if no erros, reads _Film
         getline(infile,_Film,'\n');
         
-//        if(getline(infile, _Film, ' ')){
-//            istringstream stringstream(_Film);
-//            cout << "Hello";
-//        }
-        
+
+        //generates new General Data entry
         GeneralData* newEntry = new GeneralData(_Year, _Award, _Winner, _Name, _Film);
+        
+        //adds node to tree
         addNode(_Name, *newEntry);
         treeSize++;
     }
     infile.close();
 }
 
-template <typename DATATYPE, typename KEYTYPE>
-void BSTree<DATATYPE,KEYTYPE>::ReadCSVFile(string filename){
-    ifstream infile;
-    istringstream InStream;
-    
-    int _Year = 0;
-    bool _Winner = 0;
-    string _Award,_Name, _Film, _Genre1, _Genre2, _Release, _Synopsis,_instream;
-    
-    //opening file
-    infile.open(filename);
-    
-    //checks to see if file is open, provides simple error message
-    if(!infile.is_open()){cout << "Error opening file." << endl;}
-    
-    getline(infile, _instream, '\n');
-    while(!infile.eof()){
-        //Year,Award,Winner,Name,Film
-        getline(infile, _instream, '\n');
-        InStream.str(_instream);
-    
-        InStream >> _Year;
-        InStream.ignore();
-        InStream >> _Award;
-        
-        InStream >> _Winner;
-        InStream.ignore();
-//        if(InStream.str()[0] == '"'){
-//            InStream.ignore();
-//            getline(InStream, _Name, '"');
-//        }
-        InStream >> _Name;
-//        getline(InStream, _Name, ',');
-        getline(InStream, _Film, '\n');
-        
-         GeneralData* newEntry = new GeneralData(_Year, _Award, _Winner, _Name, _Film);
-        
-        addNode(_Name, *newEntry);
-    
-    }
-    infile.close();
-    
-}
 
 //Function is used by the Picture tree.. TODO, merge seperate READCSV files into one function... currently, there is an error with datatype in the combined when trying to add
 template <typename DATATYPE, typename KEYTYPE>
@@ -433,6 +396,8 @@ void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
     
     //this gets the first line of the csv file and "trashes" it
     getline(infile, _Award,'\n');
+    
+            //reads in values of csv until end of file
             while(!infile.eof()){
                 getline(infile, _Name, ',');
                 _Name.erase(_Name.begin());
@@ -454,26 +419,40 @@ void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
                 infile.ignore();
                 getline(infile, _Synopsis, '\n');
                 if(_Synopsis[0] == '7'){
+                    
+                    //creates a string stream of _Synopsis which has the error
                     istringstream stringstream(_Synopsis);
                     
-                    //                    stringstream.ignore();
+                    //Parses _Rating from stringstream
                     stringstream >> _Rating;
+                    
+                    //ignores ','
                     stringstream.ignore();
+                    
+                    //parses _Duration
                     stringstream >> _Duration;
+                    //ignores ','
                     stringstream.ignore();
+                    
+                    //gets genres and Release info with getline
                     getline(stringstream, _Genre1, ',');
                     getline(stringstream, _Genre2, ',');
                     getline(stringstream, _Release, ',');
+                    
+                    //parses metacritic info
                     stringstream >> _MetaCritic;
+                    
+                    //error handles if value is blank, fills in 0.0 if so.
                     if (_MetaCritic == NULL) {_MetaCritic = 0.0; stringstream.clear();}
                     stringstream.ignore();
+                    //parses expected synopsis
                     getline(stringstream, _Synopsis, '\n');
                 }
                 
-    
-               
+                //creates new GeneralData entry
                 GeneralData* newEntry = new GeneralData(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
     
+                //Adds node to tree
                 addNode(_Name, *newEntry);
                 treeSize++;
     
@@ -485,6 +464,7 @@ void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
 
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE,KEYTYPE>::SortTree(char sortType){
+    //checks to ensure root is not null, then sorts
     if(root != nullptr){
         SortTree(root, sortType);
     }
@@ -507,7 +487,6 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(char sortType){
 //  'G' ''  ''  '' Genre2 (pictures)
 //  'H' ''  ''  '' Release (pictures)
 //  'I' ''  ''  '' MetaCritic (pictures)
-//TODO: Doesn't entirely work when to_string function is used to change an int to a string, it mostly works, but it puts some three digit numbers before two digit numbers i.e if you sort pictures by Metacritic, it puts 100 in front of the 90s
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sortType)
 {
@@ -517,7 +496,7 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
     // create heap
     inorderQueue(node, tempQueue);
     
-    // deletes original tree TODO: currently just sets root to nullptr, does not actually free all nodes
+    // deletes original tree: currently just sets root to nullptr, does not actually free all nodes
     freeNode(this->Root());
     
     // build new tree from heap using key type selection
@@ -610,12 +589,11 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
             break;
     }
     
-    //TODO this deletes the tempQueue tree and sets tempQueue to nullptr...
-    //    freeNode(tempQueue);
-    //    tempQueue = nullptr;
+    //Frees tempQueue Tree and sets TempQueue to nullptr
+//    freeNode(tempQueue);
+//    tempQueue = nullptr;
     
-    // print new tree
-    printInorder();
+
     
     
     return;

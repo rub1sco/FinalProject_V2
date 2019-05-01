@@ -111,71 +111,7 @@ struct GeneralData
     
 };
 
-//Datatype for Actor Tree
-/*struct GeneralData
-{
-    int Year;
-    string Award;
-    bool Winner;
-    string Name;
-    string Film;
-    GeneralData(){
-        Year = 0;
-        Award = "";
-        Winner = "";
-        Name = "";
-        Film = "";
-    }
-    GeneralData(int _year, string _award, bool _winner, string _name, string _film){
-        Year = _year;
-        Award = _award;
-        Winner = _winner;
-        Name = _name;
-        Film = _film;
-    }
-};*/
 
-//DataType for Pictures Tree
-/*struct GeneralData2{
-
-    string Film;
-    int Year;
-    int Nominations;
-    double Rating;
-    int Duration;
-    string Genre1;
-    string Genre2;
-    string Release;
-    int MetaCritic;
-    string Synopsis;
-    
-    //constructors
-    GeneralData2(){
-        Film = "";
-        Year = 0;
-        Nominations = 0;
-        Rating =  0.0;
-        Duration = 0;
-        Genre1 = "";
-        Genre2 = "";
-        Release = "";
-        MetaCritic = 0;
-        Synopsis = "";
-    }
-    GeneralData2(string _Name, int _Year, int _Nominations, double _Rating, int _Duration, string _Genre1, string _Genre2, string _Release, int _MetaCritic, string _Synopsis){
-        Film = _Name;
-        Year = _Year;
-        Nominations = _Nominations;
-        Rating = _Rating;
-        Duration = _Duration;
-        Genre1 = _Genre1;
-        Genre2 = _Genre2;
-        Release = _Release;
-        MetaCritic = _MetaCritic;
-        Synopsis = _Synopsis;
-    }
-    
-};*/
 
 
 //Binary Tree Node
