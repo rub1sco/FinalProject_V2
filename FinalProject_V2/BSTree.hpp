@@ -340,6 +340,24 @@ void BSTree<DATATYPE,KEYTYPE>::ReadActorCSVFile(string filename){
             string temp2;
             getline(infile, _Name, '"');
             _Name = temp + ", " + _Name;
+            if(_Name[0] == '"'){
+                temp = _Name;
+                temp.erase(0,2);
+                istringstream stringstream(temp);
+                
+                getline(stringstream, _Name, '"');
+                stringstream.ignore();
+                getline(stringstream, temp2, '"');
+                _Name = _Name + temp2;
+                
+            
+                stringstream.ignore();
+//                stringstream.ignore();
+                getline(stringstream, _Film, '\n');
+                
+        
+            }
+           
         }
         
 //        infile.ignore();

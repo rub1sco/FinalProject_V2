@@ -28,8 +28,9 @@ int main()
     
     ActorTree -> ReadActorCSVFile(ActorFile);
     PicturesTree -> ReadPictureCSVFile(PicturesFile);
-//    NominationsTree -> ReadActorCSVFile(NominationsFile);   //TODO Not working.. """ exists in file, must modify existing error cather for multiple """
+    NominationsTree -> ReadActorCSVFile(NominationsFile);   //TODO Not working.. """ exists in file, must modify existing error cather for multiple """
 
+    NominationsTree -> printInorder();
     
     while (menu != 'x' || menu != 'X'){
         cout << "Binary Search tree for Film Database" << endl;
@@ -120,7 +121,7 @@ int main()
             case 'L':
                 //TODO Sort the Nominations databse by any field --extra credit--
 
-//                SortActorTree(NominationsTree);
+                SortActorTree(NominationsTree);
                 break;
 
             case 'M':{
@@ -137,7 +138,7 @@ int main()
                 //TODO complete search the Nominations database --extra credit--
                 
                 //function status: not working..
-//                SearchNominationTree(NominationsTree);
+                SearchNominationTree(NominationsTree);
                 break;
     
             case 'P':{
@@ -151,7 +152,7 @@ int main()
             }
             case 'R':
                 //TODO Partial search the nomiations Database --Extra credit--
-
+                 PartialSearchActorTree(NominationsTree);
                 break;
 
             case 'X':
