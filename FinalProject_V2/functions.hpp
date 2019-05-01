@@ -176,7 +176,8 @@ static void SearchActorTreeModify(BSTree<DATATYPE, KEYTYPE> *ActorTree) {
     
     
     // sets Search Veector to returned vector of MaxsSearch
-    vector<Node<GeneralData, string>*> SearchVector = ActorTree->MaxsSearch(SearchKey);
+    vector<Node<GeneralData, string>*> SearchVector;
+    ActorTree->MaxsSearch(ActorTree->Root(), SearchKey, SearchVector);
     
     // respond appropriately if no results are found
     if(SearchVector.empty()){
@@ -287,7 +288,7 @@ static void SearchMovieTreeModify(BSTree<GeneralData, std::string> *PicturesTree
     vector<Node<GeneralData, string>*> SearchVector;
     
     // search tree
-    PicturesTree->MaxsSearch(SearchKey);
+    PicturesTree->MaxsSearch(PicturesTree->Root(), SearchKey, SearchVector);
     
     // respond appropriately if no results are found
     if(SearchVector.empty()){
@@ -470,12 +471,21 @@ static void SearchNominationTreeModify(BSTree<GeneralData, std::string> *Nominat
     }
 }
 
-
 static void SearchActorTreeDelete(BSTree<GeneralData, std::string> *ActorTree) {
     string SearchKey;
     int selection;
     
+    char userSelection;
+    cout << "Which field would you like to sort by?" << endl
+    << "A: Year" << endl
+    << "B: Film" << endl
+    << "C: Name" << endl
+    << "D: Award" << endl;
     
+    cin >> userSelection;
+    userSelection = tolower(userSelection);
+    
+    ActorTree -> SortTree(userSelection);
     
     cout << "Enter Actor/Actress entry you would like to delete:  ";
     cin.ignore();
@@ -502,7 +512,8 @@ static void SearchActorTreeDelete(BSTree<GeneralData, std::string> *ActorTree) {
             cin >> selection;
             
             ActorTree -> SortTree('b');
-            ActorTree -> deleteNode(SearchVector[selection] -> Data().Film);
+            ActorTree -> deleteNode(SearchVector[selection-1] -> Data().Film);
+            
         }
         
         else{
@@ -516,6 +527,71 @@ static void SearchActorTreeDelete(BSTree<GeneralData, std::string> *ActorTree) {
     }
 }
 
+static void SearchPicturesTreeDelete(BSTree<GeneralData, std::string> *PicturesTree) {
+    string SearchKey;
+    int selection;
+    
+    char userSelection;
+    cout << "Which field would you like to sort by?" << endl
+    << "A: Year" << endl
+    << "B: Film" << endl
+    << "C: Nominations" << endl
+    << "D: Rating" << endl
+    << "E: Duration" << endl
+    << "F: Genre1" << endl
+    << "G: Genre2" << endl
+    << "H: Release" << endl
+    << "I: MetaCritic" << endl;
+    
+    cin.ignore();
+    
+    cin >> userSelection;
+    userSelection = toupper(userSelection);
+    
+    PicturesTree -> SortTree(userSelection);
+    PicturesTree -> SortTree(userSelection);
+    
+    cout << "Enter Actor/Actress entry you would like to delete:  ";
+    cin.ignore();
+    getline(cin, SearchKey);
+    
+    vector<Node<GeneralData, string>*> SearchVector = PicturesTree -> MaxsSearch(SearchKey);
+    
+    
+    if(SearchVector.empty()){
+        cout << "No results found." << endl;
+    }
+    // output search results
+    else{
+        cout << "Search Results: " << endl;
+        
+        if (SearchVector.size() > 1){
+            for(int i = 1; i <= SearchVector.size(); i++){
+                cout << "Multiple enteries found." << endl;
+                cout << i << ". ";
+                SearchVector[i - 1]->printData();
+                
+            }
+            cout << "Select number of entry you would like to delete: ";
+            cin >> selection;
+            
+            PicturesTree -> SortTree('B');
+            PicturesTree -> deleteNode(SearchVector[selection-1] -> Data().Film);
+            
+        }
+        
+        else{
+            
+            cout << "Node to be deleted..." << endl;
+            SearchVector[0]-> printData();
+            //testing delete using provided key... will only work for one node at the moment.
+            
+            PicturesTree -> deleteNode(SearchVector[0] -> Data().Film);
+        }
+    }
+}
+
+
 static void SortActorTree(BSTree<GeneralData, std::string> *ActorTree) {
     char userSelection;
     cout << "Which field would you like to sort by?" << endl
@@ -528,6 +604,7 @@ static void SortActorTree(BSTree<GeneralData, std::string> *ActorTree) {
     userSelection = tolower(userSelection);
     
     ActorTree -> SortTree(userSelection);
+    ActorTree -> printInorder();
     
 }
 
@@ -549,6 +626,7 @@ static void SortMovieTree(BSTree<GeneralData, std::string> *PicturesTree) {
     userSelection = toupper(userSelection);
     
     PicturesTree -> SortTree(userSelection);
+    PicturesTree -> printInorder();
 }
 
 
@@ -569,7 +647,7 @@ static void CompleteSearchActorTree(BSTree<GeneralData, std::string> *ActorTree)
        userSelection != 'c' &&
        userSelection != 'd'){
         cout << "Invalid Selection." << endl;
-        //        break;
+        return;
     }
     
     //sort according to user selection
@@ -618,6 +696,20 @@ static void CompleteSearchMovieTree(BSTree<GeneralData, std::string> *PicturesTr
     
     cin >> userSelection;
     userSelection = toupper(userSelection);
+    
+    // check for valid selection
+    if(userSelection != 'A' &&
+       userSelection != 'B' &&
+       userSelection != 'C' &&
+       userSelection != 'D' &&
+       userSelection != 'E' &&
+       userSelection != 'F' &&
+       userSelection != 'G' &&
+       userSelection != 'H' &&
+       userSelection != 'I'){
+        cout << "Invalid Selection." << endl;
+        return;
+    }
     
     PicturesTree -> SortTree(userSelection);
     
@@ -678,5 +770,152 @@ static void SearchNominationTree(BSTree<GeneralData, std::string> *NominationsTr
         }
     }
 }
+
+void PartialSearchActorTree(BSTree<GeneralData, std::string> *ActorTree){
+    char userSelection;
+    cout << "Which field would you like to search?" << endl
+    << "A: Year" << endl
+    << "B: Film" << endl
+    << "C: Name" << endl
+    << "D: Award" << endl;
+    
+    cin >> userSelection;
+    userSelection = tolower(userSelection);
+    
+    // check for valid selection
+    if(userSelection != 'a' &&
+       userSelection != 'b' &&
+       userSelection != 'c' &&
+       userSelection != 'd'){
+        cout << "Invalid Selection." << endl;
+        return;
+    }
+    
+    //sort according to user selection
+    ActorTree->SortTree(userSelection);
+    
+    // get search term from user
+    string SearchKey;
+    cout << endl << "Please enter a search term: ";
+    cin.ignore();
+    getline(cin, SearchKey);
+    
+    // initialize vector to hold found nodes
+    vector<Node<GeneralData, string>*> SearchVector;
+    
+    // partial search of tree
+    ActorTree->MaxsPartialSearch(ActorTree->Root(), SearchKey, SearchVector);
+    
+    // respond appropriately if no results are found
+    if(SearchVector.empty()){
+        cout << "No results found." << endl;
+    }
+    // output search results
+    else{
+        cout << "Search Results: " << endl;
+        for(int i = 1; i <= SearchVector.size(); i++){
+            cout << i << ". ";
+            SearchVector[i - 1]->printData();
+        }
+    }
+}
+
+void PartialSearchPicturesTree (BSTree<GeneralData, std::string> *PicturesTree){
+    string SearchKey;
+    
+    char userSelection;
+    cout << "Which field would you like to sort by?" << endl
+    << "A: Year" << endl
+    << "B: Film" << endl
+    << "C: Nominations" << endl
+    << "D: Rating" << endl
+    << "E: Duration" << endl
+    << "F: Genre1" << endl
+    << "G: Genre2" << endl
+    << "H: Release" << endl
+    << "I: MetaCritic" << endl
+    << "J: Synopsis" << endl;
+    
+    cin >> userSelection;
+    userSelection = toupper(userSelection);
+    
+    // check for valid selection
+    if(userSelection != 'A' &&
+       userSelection != 'B' &&
+       userSelection != 'C' &&
+       userSelection != 'D' &&
+       userSelection != 'E' &&
+       userSelection != 'F' &&
+       userSelection != 'G' &&
+       userSelection != 'H' &&
+       userSelection != 'I' &&
+       userSelection != 'J'){
+        cout << "Invalid Selection." << endl;
+        return;
+    }
+    
+    PicturesTree -> SortTree(userSelection);
+    
+    cout << "Enter search info:  ";
+    cin.ignore();
+    getline(cin, SearchKey);
+    
+    // initialize vector to hold found nodes
+    vector<Node<GeneralData, string>*> SearchVector;
+    
+    // partial search of tree
+    PicturesTree->MaxsPartialSearch(PicturesTree->Root(), SearchKey, SearchVector);
+
+    if(SearchVector.empty()){
+        cout << "No results found." << endl;
+    }
+    // output search results
+    else{
+        cout << "Search Results: " << endl;
+        
+        if (SearchVector.size() > 1){
+            cout << "Multiple enteries found." << endl;
+            for(int i = 1; i < SearchVector.size(); i++){
+                cout << i << ". ";
+                SearchVector[i]->printData();
+                
+            }
+        }
+        else if(SearchVector.size() == 1){
+            SearchVector[0] -> printData();
+        }
+    }
+}
+
+
+/*static void SearchNominationTree(BSTree<GeneralData, std::string> *NominationsTree) {
+    string SearchKey;
+    cout << "Enter Actor/Actress entry you would like to delte:  ";
+    cin.ignore();
+    getline(cin, SearchKey);
+    
+    NominationsTree -> SortTree('C');
+    
+    vector<Node<GeneralData, string>*> SearchVector = NominationsTree -> MaxsSearch(SearchKey);
+    
+    
+    if(SearchVector.empty()){
+        cout << "No results found." << endl;
+    }
+    // output search results
+    else{
+        cout << "Search Results: " << endl;
+        
+        if (SearchVector.size() > 1){
+            for(int i = 1; i <= SearchVector.size(); i++){
+                cout << "Multiple enteries found." << endl;
+                cout << i << ". ";
+                SearchVector[i - 1]->printData();
+                
+            }
+        }
+    }
+    
+}*/
 
 #endif /* functions_hpp */

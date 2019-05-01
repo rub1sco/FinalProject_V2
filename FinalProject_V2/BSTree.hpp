@@ -433,6 +433,23 @@ void BSTree<DATATYPE,KEYTYPE>::ReadPictureCSVFile(string filename){
                 if (_MetaCritic == NULL) {_MetaCritic = 0.0; infile.clear();}
                 infile.ignore();
                 getline(infile, _Synopsis, '\n');
+                if(_Synopsis[0] == '7'){
+                    istringstream stringstream(_Synopsis);
+                    
+                    //                    stringstream.ignore();
+                    stringstream >> _Rating;
+                    stringstream.ignore();
+                    stringstream >> _Duration;
+                    stringstream.ignore();
+                    getline(stringstream, _Genre1, ',');
+                    getline(stringstream, _Genre2, ',');
+                    getline(stringstream, _Release, ',');
+                    stringstream >> _MetaCritic;
+                    if (_MetaCritic == NULL) {_MetaCritic = 0.0; stringstream.clear();}
+                    stringstream.ignore();
+                    getline(stringstream, _Synopsis, '\n');
+                }
+                
     
                
                 GeneralData* newEntry = new GeneralData(_Name, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
@@ -497,13 +514,13 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
                 tempQueue.pop();
             }
             break;
-        case 'b': //sorts by award
+        case 'b': //sorts by film
             while(!tempQueue.empty()){
                 addNode(tempQueue.front().Film, tempQueue.front());
                 tempQueue.pop();
             }
             break;
-        case 'B': //sorts by award
+        case 'B': //sorts by film
             while(!tempQueue.empty()){
                 addNode(tempQueue.front().Film, tempQueue.front());
                 tempQueue.pop();
@@ -515,7 +532,7 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
                 tempQueue.pop();
             }
             break;
-        case 'd': //sorts by film
+        case 'd': //sorts by award
             while(!tempQueue.empty()){
                 addNode(tempQueue.front().Award, tempQueue.front());
                 tempQueue.pop();
@@ -563,6 +580,11 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
                 tempQueue.pop();
             }
             break;
+        case 'J': //sorts by Synopsis
+            while(!tempQueue.empty()){
+                addNode(tempQueue.front().Synopsis, tempQueue.front());
+                tempQueue.pop();
+            }
         default:
             cout << "Invalid sort selction, tree not sorted." << endl;
             break;
@@ -573,7 +595,7 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
     //    tempQueue = nullptr;
     
     // print new tree
-    //printInorder();
+    printInorder();
     
     
     return;
@@ -712,6 +734,31 @@ void BSTree<DATATYPE,KEYTYPE>::deleteNode(vector<Node<DATATYPE, KEYTYPE> *> *Sea
             
         }
     }
+}
+
+template <typename DATATYPE, typename KEYTYPE>
+void BSTree<DATATYPE, KEYTYPE>::MaxsPartialSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector){
+    
+    //Base Case (end once leaf is reached)
+    if(Node == nullptr){
+        return;
+    }
+    
+    // determine if SearchKey is in Node Key
+    size_t found = Node->Key().find(SearchKey);
+    
+    // if found is not empty add node to return vector
+    if(found != string::npos){
+        // add node to vector
+        ReturnVector.push_back(Node);
+        
+    }
+    
+    // recurse down right branch
+    MaxsPartialSearch(Node->Left(), SearchKey, ReturnVector);
+    
+    // recurse down left branch
+    MaxsPartialSearch(Node->Right(), SearchKey, ReturnVector);
 }
 
 

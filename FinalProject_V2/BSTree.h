@@ -27,7 +27,6 @@ private:
     void PartialSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector);
     void CompleteSearch(Node<DATATYPE,KEYTYPE>const * Node, int index,vector<bool> &visited);
     void SortTree(Node<DATATYPE, KEYTYPE>* node, char sortType);
-    void MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector);
     void deleteNode(Node<DATATYPE, KEYTYPE> *NodeToDelete, int index);
 
 public:
@@ -43,6 +42,8 @@ public:
     void deleteNode(KEYTYPE key);
 	Node<DATATYPE, KEYTYPE> * min(Node<DATATYPE, KEYTYPE> * node);
 	Node<DATATYPE, KEYTYPE> * max(Node<DATATYPE, KEYTYPE> * node);
+    void MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector);
+    void MaxsPartialSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector);
     
     //Added functions by Max M. and Tom L.
     void ReadCSVFile(string filename);
