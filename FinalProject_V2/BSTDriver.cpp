@@ -17,21 +17,23 @@ using namespace std;
 
 int main()
 {
+    //Initializes files and menu option
     char menu = 0;
-    string ActorFile = "actor-actress.csv";
-    string PicturesFile = "pictures.csv";
-    string NominationsFile = "nominations.csv";
+    string ActorFile = "InputFiles/actor-actress.csv";
+    string PicturesFile = "InputFiles/pictures.csv";
+    string NominationsFile = "InputFiles/nominations.csv";
  
+    //initializes new trees
     BSTree<GeneralData, string>* ActorTree = new BSTree<GeneralData, string>;
     BSTree<GeneralData, string>* PicturesTree = new BSTree<GeneralData, string>;
     BSTree<GeneralData, string>* NominationsTree = new BSTree<GeneralData, string>;
     
+    //Builds initial trees before any functions are called.
     ActorTree -> ReadActorCSVFile(ActorFile);
     PicturesTree -> ReadPictureCSVFile(PicturesFile);
     NominationsTree -> ReadActorCSVFile(NominationsFile);   //TODO Not working.. """ exists in file, must modify existing error cather for multiple """
 
-    NominationsTree -> printInorder();
-    
+    //runs menu until x or X
     while (menu != 'x' || menu != 'X'){
         cout << "Binary Search tree for Film Database" << endl;
         cout << "A: Add a record to Actor-Actress Database" << endl;
@@ -56,106 +58,108 @@ int main()
 
         cout << "Please enter your selection: ";
         
+        //takes in user input
         cin >> menu;
-        menu = toupper(menu); //allows menu to still function if a lowercase letter is entered by user
         
+        //allows both a and A to be entered and interpreted the same
+        menu = toupper(menu);
         cout << endl;
 
         switch (menu) {
             case 'A':
+                //adds new actor Record to Actor Tree
                 AddActorRecord(ActorTree);
                 break;
             
                 case 'B':
+                 //adds new actor Record to Pictures Tree
                 AddMovieRecord(PicturesTree);
                 break;
                 
                 case 'C':
+                 //adds new actor Record to Nominations Tree
                 AddNominationsRecord(NominationsTree);
                 break;
 
                 case 'D':
+                //Searches Actor tree and allows user to modify
                 SearchActorTreeModify(ActorTree);
                 break;
                 
             case 'E':
-                // testing status: only vaguely tested
-                // determine which field user would like to search
+                //Searches Movie tree and allows User to modify
                 SearchMovieTreeModify(PicturesTree);
-                
-                // exit switch
+
                 break;
         
-            case 'F':{
-                
+            case 'F':
+                //Searches Nomination tree and allows user to modify
                 SearchNominationTreeModify(NominationsTree);
                 break;
-            }
-            case 'G':{
-                
+            
+            case 'G':
+                //Searches actor tree and allows user to delete entry
                 SearchActorTreeDelete(ActorTree);
                 break;
-            }
+            
             case 'H':
-                //TODO search for a record in movie database and DELETE field
-
+                //Searches Pictures tree and allows user to delete entry
                 SearchPicturesTreeDelete(PicturesTree);
                 
                 break;
 
             case 'I':
-                //TODO search for a record in the Nominations Database and DELETE field --extra credit--
-
+                //Searches Nominations tree and allows user to delete entry
+                SearchActorTreeDelete(NominationsTree);
                 break;
 
-            case 'J':{
-    
+            case 'J':
+                //Sorts actor tree by various keys
                 SortActorTree(ActorTree);
                 break;
-            }
-            case 'K':{
-                
+            case 'K':
+                //Sorts Movie tree by various keys
                 SortMovieTree(PicturesTree);
                 break;
-            }
+            
             case 'L':
-                //TODO Sort the Nominations databse by any field --extra credit--
-
+                //Sorts Nominations tree by various keys
                 SortActorTree(NominationsTree);
                 break;
 
-            case 'M':{
-                
+            case 'M':
+                //Searches Actor Tree for exact string
                 CompleteSearchActorTree(ActorTree);
                 break;
-            }
-            case 'N':{
             
+            case 'N':
+                //Searches Movie Tree for exact string
                 CompleteSearchMovieTree(PicturesTree);
                 break;
-            }
+            
             case 'O':
-                //TODO complete search the Nominations database --extra credit--
-                
-                //function status: not working..
-                SearchNominationTree(NominationsTree);
+                //Searches Nominations Tree for exact string
+                CompleteSearchActorTree(NominationsTree);
                 break;
     
-            case 'P':{
+            case 'P':
+                //Searches Actor Tree for partial string
                 PartialSearchActorTree(ActorTree);
                 break;
-            }
+            
 
-            case 'Q':{
+            case 'Q':
+                //Searches Pictures Tree for partial string
                 PartialSearchPicturesTree(PicturesTree);
                 break;
-            }
+            
             case 'R':
-                //TODO Partial search the nomiations Database --Extra credit--
+                //Searches Nominations Tree for partial string
                  PartialSearchActorTree(NominationsTree);
                 break;
 
             case 'X':
+                //Deletes Trees
                 delete ActorTree;
                 delete PicturesTree;
                 delete NominationsTree;
