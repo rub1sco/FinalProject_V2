@@ -177,7 +177,7 @@ static void SearchActorTreeModify(BSTree<DATATYPE, KEYTYPE> *ActorTree) {
     
     // sets Search Veector to returned vector of MaxsSearch
     vector<Node<GeneralData, string>*> SearchVector;
-    ActorTree->MaxsSearch(ActorTree->Root(), SearchKey, SearchVector);
+    ActorTree->CompleteSearch(ActorTree->Root(), SearchKey, SearchVector);
     
     // respond appropriately if no results are found
     if(SearchVector.empty()){
@@ -288,7 +288,7 @@ static void SearchMovieTreeModify(BSTree<GeneralData, std::string> *PicturesTree
     vector<Node<GeneralData, string>*> SearchVector;
     
     // search tree
-    PicturesTree->MaxsSearch(PicturesTree->Root(), SearchKey, SearchVector);
+    PicturesTree->CompleteSearch(PicturesTree->Root(), SearchKey, SearchVector);
     
     // respond appropriately if no results are found
     if(SearchVector.empty()){
@@ -406,7 +406,7 @@ static void SearchNominationTreeModify(BSTree<GeneralData, std::string> *Nominat
     
     
     // sets Search Veector to returned vector of MaxsSearch
-    vector<Node<GeneralData, string>*> SearchVector = NominationsTree->MaxsSearch(SearchKey);
+    vector<Node<GeneralData, string>*> SearchVector = NominationsTree->CompleteSearch(SearchKey);
     
     // respond appropriately if no results are found
     if(SearchVector.empty()){
@@ -491,7 +491,7 @@ static void SearchActorTreeDelete(BSTree<GeneralData, std::string> *ActorTree) {
     cin.ignore();
     getline(cin, SearchKey);
     
-    vector<Node<GeneralData, string>*> SearchVector = ActorTree -> MaxsSearch(SearchKey);
+    vector<Node<GeneralData, string>*> SearchVector = ActorTree -> CompleteSearch(SearchKey);
     
     
     if(SearchVector.empty()){
@@ -555,7 +555,7 @@ static void SearchPicturesTreeDelete(BSTree<GeneralData, std::string> *PicturesT
     cin.ignore();
     getline(cin, SearchKey);
     
-    vector<Node<GeneralData, string>*> SearchVector = PicturesTree -> MaxsSearch(SearchKey);
+    vector<Node<GeneralData, string>*> SearchVector = PicturesTree -> CompleteSearch(SearchKey);
     
     
     if(SearchVector.empty()){
@@ -662,7 +662,7 @@ static void CompleteSearchActorTree(BSTree<GeneralData, std::string> *ActorTree)
     
     
     // sets Search Veector to returned vector of MaxsSearch
-    vector<Node<GeneralData, string>*> SearchVector = ActorTree->MaxsSearch(SearchKey);
+    vector<Node<GeneralData, string>*> SearchVector = ActorTree->CompleteSearch(SearchKey);
     
     // respond appropriately if no results are found
     if(SearchVector.empty()){
@@ -717,7 +717,7 @@ static void CompleteSearchMovieTree(BSTree<GeneralData, std::string> *PicturesTr
     cin.ignore();
     getline(cin, SearchKey);
     
-    vector<Node<GeneralData, string>*> SearchVector = PicturesTree -> MaxsSearch(SearchKey);
+    vector<Node<GeneralData, string>*> SearchVector = PicturesTree -> CompleteSearch(SearchKey);
     
     
     if(SearchVector.empty()){
@@ -750,7 +750,7 @@ static void SearchNominationTree(BSTree<GeneralData, std::string> *NominationsTr
     
     NominationsTree -> SortTree('C');
     
-    vector<Node<GeneralData, string>*> SearchVector = NominationsTree -> MaxsSearch(SearchKey);
+    vector<Node<GeneralData, string>*> SearchVector = NominationsTree -> CompleteSearch(SearchKey);
     
     
     if(SearchVector.empty()){
@@ -804,7 +804,7 @@ void PartialSearchActorTree(BSTree<GeneralData, std::string> *ActorTree){
     vector<Node<GeneralData, string>*> SearchVector;
     
     // partial search of tree
-    ActorTree->MaxsPartialSearch(ActorTree->Root(), SearchKey, SearchVector);
+    ActorTree->PartialSearch(ActorTree->Root(), SearchKey, SearchVector);
     
     // respond appropriately if no results are found
     if(SearchVector.empty()){
@@ -864,7 +864,7 @@ void PartialSearchPicturesTree (BSTree<GeneralData, std::string> *PicturesTree){
     vector<Node<GeneralData, string>*> SearchVector;
     
     // partial search of tree
-    PicturesTree->MaxsPartialSearch(PicturesTree->Root(), SearchKey, SearchVector);
+    PicturesTree->PartialSearch(PicturesTree->Root(), SearchKey, SearchVector);
 
     if(SearchVector.empty()){
         cout << "No results found." << endl;

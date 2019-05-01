@@ -354,14 +354,16 @@ void BSTree<DATATYPE,KEYTYPE>::ReadActorCSVFile(string filename){
                 stringstream.ignore();
 //                stringstream.ignore();
                 getline(stringstream, _Film, '\n');
-                
-        
             }
-           
         }
         
 //        infile.ignore();
         getline(infile,_Film,'\n');
+        
+//        if(getline(infile, _Film, ' ')){
+//            istringstream stringstream(_Film);
+//            cout << "Hello";
+//        }
         
         GeneralData* newEntry = new GeneralData(_Year, _Award, _Winner, _Name, _Film);
         addNode(_Name, *newEntry);
@@ -619,41 +621,21 @@ void BSTree<DATATYPE,KEYTYPE>::SortTree(Node<DATATYPE, KEYTYPE> *node, char sort
     return;
 }
 
-//template <typename DATATYPE, typename KEYTYPE>
-//void BSTree<DATATYPE,KEYTYPE>::CompleteSearch(string SearchKey){
-//    vector<bool> visited;
-//    int index;
-//    
-//    if (root != nullptr){
-//        CompleteSearch(root, index , visited);
-//    }
-//}
-//
-//template <typename DATATYPE, typename KEYTYPE>
-//void BSTree<DATATYPE,KEYTYPE>::CompleteSearch(const Node<DATATYPE, KEYTYPE> *Node, int index, vector<bool> &visited){
-//    
-//    //indicates if node has been visited
-//    visited[index] = true;
-//    
-//    //initializes stack
-////    stack<Node<DATATYPE, KEYTYPE>> tempStack;
-//    
-//    
-//}
+
 
 template <typename DATATYPE, typename KEYTYPE>
-vector<Node<DATATYPE,KEYTYPE>*> BSTree<DATATYPE, KEYTYPE>::MaxsSearch(string SearchKey){
+vector<Node<DATATYPE,KEYTYPE>*> BSTree<DATATYPE, KEYTYPE>::CompleteSearch(string SearchKey){
     vector<Node<DATATYPE, KEYTYPE>*> searchVector;
     
     if(root != nullptr){
-        MaxsSearch(root, SearchKey, searchVector);
+        CompleteSearch(root, SearchKey, searchVector);
     }
     
     return searchVector;
 }
 
 template <typename DATATYPE, typename KEYTYPE>
-void BSTree<DATATYPE, KEYTYPE>::MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector){
+void BSTree<DATATYPE, KEYTYPE>::CompleteSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector){
     
     //Base Case (end once leaf is reached)
     if(Node == nullptr){
@@ -666,96 +648,29 @@ void BSTree<DATATYPE, KEYTYPE>::MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string
         ReturnVector.push_back(Node);
         
         // recurse down left branch (to find multiples)
-        MaxsSearch(Node->Left(), SearchKey, ReturnVector);
+        CompleteSearch(Node->Left(), SearchKey, ReturnVector);
         
         // recurse down right branch (to find multiples
-        MaxsSearch(Node->Right(), SearchKey, ReturnVector);
+        CompleteSearch(Node->Right(), SearchKey, ReturnVector);
     }
     
     // if nod key does not match search key
     else if(Node->Key() < SearchKey){
         
         // recurse down right branch
-        MaxsSearch(Node->Right(), SearchKey, ReturnVector);
+        CompleteSearch(Node->Right(), SearchKey, ReturnVector);
     }
     else{
         
         // recurse down left branch
-        MaxsSearch(Node->Left(), SearchKey, ReturnVector);
+        CompleteSearch(Node->Left(), SearchKey, ReturnVector);
     }
 }
-template <typename DATATYPE, typename KEYTYPE>
-vector<Node<DATATYPE,KEYTYPE>*>BSTree<DATATYPE,KEYTYPE>::PartialSearch(string SearchKey){
-    vector<Node<DATATYPE, KEYTYPE>*> searchVector;
-    
-    if(root != nullptr){
-        PartialSearch(root, SearchKey, searchVector);
-    }
-    
-    return searchVector;
-}
+
 
 template <typename DATATYPE, typename KEYTYPE>
 void BSTree<DATATYPE, KEYTYPE>::PartialSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector){
     
-    //Base Case (end once leaf is reached)
-    if(Node == nullptr){
-        return;
-    }
-    
-    // if node key matches search key
-    if(Node->Key() == SearchKey){
-        // add node to vector
-        ReturnVector.push_back(Node);
-        
-        // recurse down left branch (to find multiples)
-        PartialSearch(Node->Left(), SearchKey, ReturnVector);
-        
-        // recurse down right branch (to find multiples
-        PartialSearch(Node->Right(), SearchKey, ReturnVector);
-    }
-    
-    // if nod key does not match search key
-    else if(Node->Key() < SearchKey){
-        
-        // recurse down right branch
-        MaxsSearch(Node->Right(), SearchKey, ReturnVector);
-    }
-    else{
-        
-        // recurse down left branch
-        MaxsSearch(Node->Left(), SearchKey, ReturnVector);
-    }
-
-    
-}
-
-template <typename DATATYPE, typename KEYTYPE>
-void BSTree<DATATYPE,KEYTYPE>::deleteNode(vector<Node<DATATYPE, KEYTYPE> *> *SearchVector, int index){
- 
-    if(root != nullptr){
-//        deleteNode(&SearchVector[index],);
-        Node<DATATYPE, KEYTYPE> tempNode = root;
-        Node<DATATYPE, KEYTYPE> nodeToDelete = SearchVector[index];
-        
-
-        while (tempNode != nodeToDelete){
-            if(nodeToDelete < tempNode){
-                tempNode = tempNode.Left();
-            }
-            else if (nodeToDelete > tempNode){
-                tempNode = tempNode.Right();
-            }
-        }
-        if(nodeToDelete == tempNode){
-            
-            
-        }
-    }
-}
-
-template <typename DATATYPE, typename KEYTYPE>
-void BSTree<DATATYPE, KEYTYPE>::MaxsPartialSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector){
     
     //Base Case (end once leaf is reached)
     if(Node == nullptr){
@@ -773,59 +688,9 @@ void BSTree<DATATYPE, KEYTYPE>::MaxsPartialSearch(Node<DATATYPE, KEYTYPE> *Node,
     }
     
     // recurse down right branch
-    MaxsPartialSearch(Node->Left(), SearchKey, ReturnVector);
+    PartialSearch(Node->Left(), SearchKey, ReturnVector);
     
     // recurse down left branch
-    MaxsPartialSearch(Node->Right(), SearchKey, ReturnVector);
+    PartialSearch(Node->Right(), SearchKey, ReturnVector);
 }
 
-
-
-//commented out just to save original template 
-///* Given a binary search tree and a key, this function deletes the key
-// and returns the new root */
-//
-//// base case
-//if (aRoot == nullptr) return aRoot;
-//
-//// If the key to be deleted is smaller than the aRoot's key,
-//// then it lies in left subtree
-//if (value < aRoot->Key())
-//aRoot->setLeft(deleteNode(aRoot->Left(), value));
-//
-//// If the key to be deleted is greater than the root's key,
-//// then it lies in right subtree
-//else if (value > aRoot->Key())
-//root->setRight(deleteNode(aRoot->Right(), value));
-//
-//// if key is same as root's key, then This is the node
-//// to be deleted
-//else
-//{
-//    // node with only one child or no child
-//    if (aRoot->Left() == nullptr)
-//    {
-//        Node<DATATYPE, KEYTYPE> *temp = aRoot->Right();
-//        delete aRoot;
-//        return temp;
-//    }
-//    else if (aRoot->Right() == nullptr)
-//    {
-//        Node<DATATYPE, KEYTYPE> *temp = aRoot->Left();
-//        delete aRoot;
-//        return temp;
-//    }
-//
-//    // node with two children: Get the inorder successor (smallest
-//    // in the right subtree)
-//    Node<DATATYPE, KEYTYPE> * temp = min(aRoot->Right());
-//
-//    // Copy the inorder successor's content to this node
-//    aRoot->setKey(temp->Key());
-//    aRoot->setData(temp->Data());
-//
-//    // Delete the inorder successor
-//    aRoot->setRight(deleteNode(aRoot->Right(), temp->Key()));
-//}
-//return aRoot;
-//
