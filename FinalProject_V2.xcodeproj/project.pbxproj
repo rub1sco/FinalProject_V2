@@ -32,6 +32,7 @@
 		E28C838E22684169009335FB /* nominations.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nominations.csv; sourceTree = "<group>"; };
 		E28C838F22684169009335FB /* pictures.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pictures.csv; sourceTree = "<group>"; };
 		E28C839022684169009335FB /* actor-actress.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "actor-actress.csv"; sourceTree = "<group>"; };
+		E2EF7B35227905950034AADE /* functions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = functions.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +71,7 @@
 				E273DB672267BDE9003110FB /* BSTree.h */,
 				E273DB692267BDE9003110FB /* BSTree.hpp */,
 				E273DB6A2267BDE9003110FB /* Node.h */,
+				E2EF7B35227905950034AADE /* functions.hpp */,
 			);
 			path = FinalProject_V2;
 			sourceTree = "<group>";

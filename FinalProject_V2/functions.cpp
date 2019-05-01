@@ -2,7 +2,7 @@
 //  functions.cpp
 //  FinalProject_V2
 //
-//  Created by Max McGrath on 4/27/19.
+//  Created by Tom Lucero on 4/30/19.
 //  Copyright © 2019 Tom Lucero. All rights reserved.
 //
 

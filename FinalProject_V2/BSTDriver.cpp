@@ -7,12 +7,17 @@ Status: works with completed and correct BSTree.cpp
 but do NOT compile it (or add it to the project)*/
 #include <iostream>
 #include <cctype>
-//#include "functions.hpp"
+#include "functions.hpp"
 #include "Node.h"
 #include "BSTree.hpp"
 
 
 using namespace std;
+
+
+
+
+
 
 int main()
 {
@@ -26,12 +31,14 @@ int main()
     BSTree<GeneralData, string>* NominationsTree = new BSTree<GeneralData, string>;
    
 //    ActorTree -> ReadCSVFile(ActorFile);      //Does not work... delete if cannot fix.
+//    ActorTree -> ReadCSVFile(ActorFile);
+    
     ActorTree -> ReadActorCSVFile(ActorFile);
     PicturesTree -> ReadPictureCSVFile(PicturesFile);
-    NominationsTree -> ReadActorCSVFile(NominationsFile);   //TODO for some entries """ appears? ie. """hush...Hush sweet caroline
+//    NominationsTree -> ReadActorCSVFile(NominationsFile);   //TODO Not working.. """ exists in file, must modify existing error cather for multiple """
     
     // test print tree function
-    //PicturesTree -> printInorder();
+    PicturesTree -> printInorder();
     
     
     //test of finding node based on string value.
@@ -69,455 +76,137 @@ int main()
 
         switch (menu) {
             case 'A':
-            case 'a':
-                //Add a record to Actor-Actress Database.... TODO must test!!
-            {
-                int _Year;
-                string _Name, _Award, _Film;
-                bool _bWinner = false;
-                char _Winner;
-                
-                cout << "Please enter actor/actress nominated: ";
-                getline(cin, _Name);
-                cin.ignore();
-                
-                cout << "Please enter title of film: ";
-                getline(cin, _Film);
-                cout << endl;
-                
-                cout << "Please enter year the film was released: ";
-                cin >> _Year;
-                cin.ignore();
-                cout << endl;
-                
-                cout << "Please enter award title: " ;
-                getline(cin, _Award);
-                cout << endl;
-                
-                cout << "Did the actor/actress win? (T/F): ";
-                cin >> _Winner;
-                
-                GeneralData* newEntry = new GeneralData(_Year, _Award, _bWinner, _Name, _Film);
-                ActorTree -> addNode(_Name, *newEntry);
-//                ActorTree -> printInorder();
+                AddActorRecord(ActorTree);
+                break;
             
-              break;
-            }
-
-            case 'B':
-            case 'b':
-                //Add a record to movie database.... TODO must test!!
-            {
-                
-                int _Year = 0, _Nominations = 0,_Duration = 0, _MetaCritic = 0;
-                double _Rating = 0.0;
-                string _Film, _Genre1, _Genre2, _Release, _Synopsis;
-                
-                cout << "Please enter name of film: ";
-                cin.ignore();
-                getline(cin, _Film);
-                cout << endl;
-                
-                cout << "Please enter year film was released: ";
-                cin >> _Year;
-                cout << endl;
-                
-                cout << "Please enter number of Nominations: ";
-                cin >> _Nominations;
-                cout << endl;
-                
-                cout << "Please enter duration of film: ";
-                cin >> _Duration;
-                cout << endl;
-                
-                cout << "Please enter rating of film: ";
-                cin >> _Rating;
-                cout << endl;
-                
-                cout << "Please enter metacritic rating: ";
-                cin >> _MetaCritic;
-                cout << endl;
-                
-                cout << "Please enter main genre film is classifed as: ";
-                cin.ignore();
-                getline(cin, _Genre1);
-                cout << endl;
-                
-                cout << "Please enter secondary genre film is classifed as: ";
-                cin.ignore();
-                getline(cin, _Genre2);
-                cout << endl;
-                
-                cout << "Please enter the month the film was released: ";
-                cin.ignore();
-                getline(cin, _Release);
-                cout << endl;
-                
-                cout << "Please enter brief synopsis of film: ";
-                cin.ignore();
-                getline(cin, _Synopsis);
-                cout << endl;
-                
-                GeneralData* newEntry = new GeneralData(_Film, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
-                
-                PicturesTree -> addNode(_Film, *newEntry);
-                
+                case 'B':
+                AddMovieRecord(PicturesTree);
                 break;
-            }
-            case 'C':
-            case 'c':
-                //TODO add a record to nominations Database --extra credit--
-
+                
+                case 'C':
+                AddNominationsRecord(NominationsTree);
                 break;
 
-            case 'D':{
-            case 'd':
-                // testing status: only vaguely tested
-                // test notes: removed the first character from Genre2 for some reason
-                // determine which field user would like to search
-                char userSelection;
-                cout << "Which field would you like to Search by?" << endl
-                << "A: Year" << endl
-                << "B: Film" << endl
-                << "C: Name" << endl
-                << "D: Award" << endl;
-                
-                cin >> userSelection;
-                userSelection = tolower(userSelection);
-                
-                // check for valid selection
-                if(userSelection != 'a' &&
-                   userSelection != 'b' &&
-                   userSelection != 'c' &&
-                   userSelection != 'd'){
-                    cout << "Invalid Selection." << endl;
-                    break;
-                }
-                
-                //sort according to user selection
-                ActorTree->SortTree(userSelection);
-//                ActorTree->printInorder();
-                
-                // get search term from user
-                string SearchKey;
-                cout << endl << "Please enter a search term: ";
-                cin.ignore();
-                getline(cin, SearchKey);
-                
-                // create vector to hold found results
-                vector<Node<GeneralData, string>*> SearchVector;
-                
-                // sets Search Veector to returned vector of MaxsSearch
-                SearchVector = ActorTree->MaxsSearch(SearchKey);
-                
-                // respond appropriately if no results are found
-                if(SearchVector.empty()){
-                    cout << "No results found." << endl;
-                }
-                // output search results
-                else{
-                    cout << "Search Results: " << endl;
-                    for(int i = 1; i <= SearchVector.size(); i++){
-                        cout << i << ". ";
-                        SearchVector[i - 1]->printData();
-                    }
-                    
-                    cout << endl << "Which entry would you like to edit? (#) ";
-                    
-                    // get selection to edit field
-                    int choice;
-                    cin >> choice;
-                    
-                    // check for valid selection
-                    if(choice > 0 && choice <= SearchVector.size()){
-                        // get updated information from user
-                        int _Year;
-                        string _Name, _Award, _Film;
-                        bool _bWinner = false;
-                        char _Winner;
-                        cin.ignore();
-                        
-                        cout << "Please enter actor/actress nominated: ";
-                        getline(cin, _Name);
-                        cin.ignore();
-                        
-                        cout << "Please enter title of film: ";
-                        getline(cin, _Film);
-                        cout << endl;
-                        
-                        cout << "Please enter year the film was released: ";
-                        cin >> _Year;
-                        cin.ignore();
-                        cout << endl;
-                        
-                        cout << "Please enter award title: " ;
-                        getline(cin, _Award);
-                        cout << endl;
-                        
-                        cout << "Did the actor/actress win? (T/F): ";
-                        cin >> _Winner;
-                        
-                        if(_Winner == 'T' || _Winner == 't'){_bWinner = true;}
-                        //                _bWinner = false;
-                        cout << endl;
-                        
-                        
-                        //update node with new information
-                        GeneralData newEntry(_Year, _Award, _bWinner, _Name, _Film);
-                        SearchVector[choice-1]->setData(newEntry);
-                        
-                    }
-                    else{ //if invalid selection entered
-                        cout << "Invalid Selection." << endl << endl;
-                    }
-                }
-                
-                // exit switch
+                case 'D':
+                SearchActorTreeModify(ActorTree);
                 break;
-            }
+                
             case 'E':
-            case 'e':
-            {
                 // testing status: only vaguely tested
                 // determine which field user would like to search
-                char userSelection;
-                cout << "Which field would you like to Search by?" << endl
-                << "A: Year" << endl
-                << "B: Film" << endl
-                << "C: Number of Nominations" << endl
-                << "D: Rating" << endl
-                << "E: Duration" << endl
-                << "F: Genre 1" << endl
-                << "G: Genre 2" << endl
-                << "H: Release (Month)" << endl
-                << "I: MetaCritic" << endl;
-                
-                cin >> userSelection;
-                userSelection = toupper(userSelection);
-                
-                // check for valid selection
-                if(userSelection != 'A' &&
-                   userSelection != 'B' &&
-                   userSelection != 'C' &&
-                   userSelection != 'D' &&
-                   userSelection != 'E' &&
-                   userSelection != 'F' &&
-                   userSelection != 'G' &&
-                   userSelection != 'H' &&
-                   userSelection != 'I'){
-                    cout << "Invalid Selection." << endl;
-                    break;
-                }
-                
-                // sort tree prior to search
-                PicturesTree->SortTree(userSelection);
-                PicturesTree->printInorder();
-                
-                // get search term from user
-                string SearchKey;
-                cout << endl << "Please enter a search term: ";
-                cin.ignore();
-                getline(cin, SearchKey);
-                
-                // create vector to hold found results
-                vector<Node<GeneralData, string>*> SearchVector;
-                
-                // search tree
-                PicturesTree->MaxsSearch(SearchKey);
-                
-                // respond appropriately if no results are found
-                if(SearchVector.empty()){
-                    cout << "No results found." << endl;
-                }
-                
-                // output search results
-                else{
-                    cout << "Search Results: " << endl;
-                    for(int i = 1; i <= SearchVector.size(); i++){
-                        cout << i << ". ";
-                        SearchVector[i - 1]->printData();
-                    }
-                    
-                    cout << endl << "Which entry would you like to edit? (#) ";
-                    
-                    // get selection to edit field
-                    int choice;
-                    cin >> choice;
-                    
-                    // check for valid selection
-                    if(choice > 0 && choice <= SearchVector.size()){
-                        
-                        // get updated information from user
-                        int _Year = 0, _Nominations = 0,_Duration = 0, _MetaCritic = 0;
-                        double _Rating = 0.0;
-                        string _Film, _Genre1, _Genre2, _Release, _Synopsis;
-                        
-                        cout << "Please enter name of film: ";
-                        cin.ignore();
-                        getline(cin, _Film);
-                        cout << endl;
-                        
-                        cout << "Please enter year film was released: ";
-                        cin >> _Year;
-                        cout << endl;
-                        
-                        cout << "Please enter number of Nominations: ";
-                        cin >> _Nominations;
-                        cout << endl;
-                        
-                        cout << "Please enter duration of film: ";
-                        cin >> _Duration;
-                        cout << endl;
-                        
-                        cout << "Please enter rating of film: ";
-                        cin >> _Rating;
-                        cout << endl;
-                        
-                        cout << "Please enter metacritic rating: ";
-                        cin >> _MetaCritic;
-                        cout << endl;
-                        
-                        cout << "Please enter main genre film is classifed as: ";
-                        cin.ignore();
-                        getline(cin, _Genre1);
-                        cout << endl;
-                        
-                        cout << "Please enter secondary genre film is classifed as: ";
-                        cin.ignore();
-                        getline(cin, _Genre2);
-                        cout << endl;
-                        
-                        cout << "Please enter the month the film was released: ";
-                        cin.ignore();
-                        getline(cin, _Release);
-                        cout << endl;
-                        
-                        cout << "Please enter brief synopsis of film: ";
-                        cin.ignore();
-                        getline(cin, _Synopsis);
-                        cout << endl;
-                        
-                        //update node with new information
-                        GeneralData newEntry(_Film, _Year, _Nominations, _Rating, _Duration, _Genre1, _Genre2, _Release, _MetaCritic, _Synopsis);
-                        
-                        SearchVector[choice-1]->setData(newEntry);
-                        
-                    }
-                    else{ //if invalid selection entered
-                        cout << "Invalid Selection." << endl << endl;
-                    }
-                }
+                SearchMovieTreeModify(PicturesTree);
                 
                 // exit switch
                 break;
-            }
+        
             case 'F':
-            case 'f':
+            {
                 //TODO search for a record in Nominations Database and MODIFY field. --extra credit--
+                
+                // testing status: works with Award search.. Name, film might have issues related to ","
+                // test notes: does not work with Name field... probably relates to the "Cuba Gooding, Jr." error with the "," as delimiter
+                // determine which field user would like to search
+                SearchNominationTreeModify(NominationsTree);
+                
                 break;
-
+            }
             case 'G':
-            case 'g':
                 //TODO search for record in Actor Actress Database and DELETE the field
-
+                SearchActorTreeDelete(ActorTree);
+                
                 break;
 
             case 'H':
-            case 'h':
                 //TODO search for a record in movie database and DELETE field
 
+
+                
                 break;
 
             case 'I':
-            case 'i':
                 //TODO search for a record in the Nominations Database and DELETE field --extra credit--
 
                 break;
 
             case 'J':
-            case 'j':
-            {
-                char userSelection;
-                cout << "Which field would you like to sort by?" << endl
-                << "A: Year" << endl
-                << "B: Film" << endl
-                << "C: Name" << endl
-                << "D: Award" << endl;
-            
-                cin >> userSelection;
-                userSelection = tolower(userSelection);
-                
-                ActorTree -> SortTree(userSelection);
-
+    
+                SortActorTree(ActorTree);
                 break;
-                
-            }
+        
             case 'K':
-            case 'k':
             {
-                char userSelection;
-                cout << "Which field would you like to sort by?" << endl
-                << "A: Year" << endl
-                << "B: Film" << endl
-                << "C: Nominations" << endl
-                << "D: Rating" << endl
-                << "E: Duration" << endl
-                << "F: Genre1" << endl
-                << "G: Genre2" << endl
-                << "H: Release" << endl
-                << "I: MetaCritic" << endl;
-                
-                cin >> userSelection;
-                userSelection = toupper(userSelection);
-                
-                PicturesTree -> SortTree(userSelection);
+                SortMovieTree(PicturesTree);
         
                 break;
             }
             case 'L':
-            case 'l':
                 //TODO Sort the Nominations databse by any field --extra credit--
 
+//                SortActorTree(NominationsTree);
                 break;
 
             case 'M':
-            case 'm':
                 //TODO complete search the Actor-Actress database
-
+            {
+                // testing status: only vaguely tested
+                // test notes: removed the first character from Genre2 for some reason
+                // determine which field user would like to search
+                CompleteSearchActorTree(ActorTree);
                 break;
-
+            }
             case 'N':
-            case 'n':
                 //TODO complete search the movie database
+            
+                CompleteSearchMovieTree(PicturesTree);
+            
 
                 break;
 
             case 'O':
-            case 'o':
                 //TODO complete search the Nominations database --extra credit--
-
+                
+                //function status: not working..
+//                SearchNominationTree(NominationsTree);
                 break;
-
+    
             case 'P':
-            case 'p':
                 //TODO Partial search the Actor-Actress database
-
+            {
+                string SearchKey;
+                cin.ignore();
+                cout << "Enter partial string to search: " << endl;
+                getline(cin, SearchKey, '\n');
+                
+                // sets Search Veector to returned vector of MaxsSearch
+                vector<Node<GeneralData, string>*> SearchVector = ActorTree->PartialSearch(SearchKey);
+                
+                // respond appropriately if no results are found
+                if(SearchVector.empty()){
+                    cout << "No results found." << endl;
+                }
+                // output search results
+                else{
+                    cout << "Search Results: " << endl;
+                    for(int i = 1; i <= SearchVector.size(); i++){
+                        cout << i << ". ";
+                        SearchVector[i - 1]->printData();
+                    }
+                }
+                
+            }
                 break;
 
             case 'Q':
-            case 'q':
                 //TODO partial search the Movie database
 
                 break;
 
             case 'R':
-            case 'r':
                 //TODO Partial search the nomiations Database --Extra credit--
 
                 break;
 
             case 'X':
-            case 'x':
                 delete ActorTree;
                 delete PicturesTree;
                 delete NominationsTree;
