@@ -5,6 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <queue>
+#include <sstream>
+
 using namespace std;
 
 #include "Node.h"
@@ -22,9 +24,11 @@ private:
     
     
     int treeSize; //Note: Added this, didn't end up using it, left it in case it's useful later
+    void PartialSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector);
     void CompleteSearch(Node<DATATYPE,KEYTYPE>const * Node, int index,vector<bool> &visited);
     void SortTree(Node<DATATYPE, KEYTYPE>* node, char sortType);
-    vector<bool> visited;
+    void MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector);
+    void deleteNode(Node<DATATYPE, KEYTYPE> *NodeToDelete, int index);
 
 public:
     BSTree<DATATYPE, KEYTYPE>();
@@ -46,8 +50,9 @@ public:
     void ReadPictureCSVFile(string filename);
     void inorderQueue(Node<DATATYPE, KEYTYPE> * node, queue<DATATYPE> &heapQueue);
     void SortTree(char sortType);
-    void CompleteSearch(string SearchKey);
-    void MaxsSearch(Node<DATATYPE, KEYTYPE> *Node, string SearchKey, vector<::Node<DATATYPE, KEYTYPE>*> &ReturnVector); //searches and returns vector of all nodes with matching keys
+    vector<Node<DATATYPE,KEYTYPE>*> PartialSearch(string SearchKey);
+    vector<Node<DATATYPE,KEYTYPE>*> MaxsSearch(string SearchKey);
+    void deleteNode(vector<Node<DATATYPE,KEYTYPE>*> *SearchVector, int index);
     
 };
 #endif  //BST
