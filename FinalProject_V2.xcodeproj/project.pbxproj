@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E273DB6B2267BDE9003110FB /* BSTDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E273DB682267BDE9003110FB /* BSTDriver.cpp */; };
+		E28A317B227A529D009A851D /* BSTDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E28A3175227A529D009A851D /* BSTDriver.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,14 +24,15 @@
 
 /* Begin PBXFileReference section */
 		E273DB5D2267BD8F003110FB /* FinalProject_V2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FinalProject_V2; sourceTree = BUILT_PRODUCTS_DIR; };
-		E273DB672267BDE9003110FB /* BSTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTree.h; sourceTree = "<group>"; };
-		E273DB682267BDE9003110FB /* BSTDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BSTDriver.cpp; sourceTree = "<group>"; };
-		E273DB692267BDE9003110FB /* BSTree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BSTree.hpp; sourceTree = "<group>"; };
-		E273DB6A2267BDE9003110FB /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
-		E28C838E22684169009335FB /* nominations.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nominations.csv; sourceTree = "<group>"; };
-		E28C838F22684169009335FB /* pictures.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pictures.csv; sourceTree = "<group>"; };
-		E28C839022684169009335FB /* actor-actress.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "actor-actress.csv"; sourceTree = "<group>"; };
-		E2EF7B35227905950034AADE /* functions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = functions.hpp; sourceTree = "<group>"; };
+		E28A316D227A529D009A851D /* pictures.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pictures.csv; sourceTree = "<group>"; };
+		E28A316E227A529D009A851D /* nominations.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nominations.csv; sourceTree = "<group>"; };
+		E28A316F227A529D009A851D /* actor-actress.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "actor-actress.csv"; sourceTree = "<group>"; };
+		E28A3170227A529D009A851D /* functions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = functions.hpp; sourceTree = "<group>"; };
+		E28A3171227A529D009A851D /* BSTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTree.h; sourceTree = "<group>"; };
+		E28A3172227A529D009A851D /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
+		E28A3173227A529D009A851D /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		E28A3175227A529D009A851D /* BSTDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BSTDriver.cpp; sourceTree = "<group>"; };
+		E28A3177227A529D009A851D /* BSTree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BSTree.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +49,7 @@
 		E273DB542267BD8E003110FB = {
 			isa = PBXGroup;
 			children = (
-				E273DB5F2267BD8F003110FB /* FinalProject_V2 */,
+				E28A316B227A529D009A851D /* MaxM_TomL_BSTFinalProject */,
 				E273DB5E2267BD8F003110FB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,25 +62,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E273DB5F2267BD8F003110FB /* FinalProject_V2 */ = {
+		E28A316B227A529D009A851D /* MaxM_TomL_BSTFinalProject */ = {
 			isa = PBXGroup;
 			children = (
-				E273DB6C2267BDFB003110FB /* InputFiles */,
-				E273DB682267BDE9003110FB /* BSTDriver.cpp */,
-				E273DB672267BDE9003110FB /* BSTree.h */,
-				E273DB692267BDE9003110FB /* BSTree.hpp */,
-				E273DB6A2267BDE9003110FB /* Node.h */,
-				E2EF7B35227905950034AADE /* functions.hpp */,
+				E28A316C227A529D009A851D /* InputFiles */,
+				E28A3170227A529D009A851D /* functions.hpp */,
+				E28A3171227A529D009A851D /* BSTree.h */,
+				E28A3172227A529D009A851D /* makefile */,
+				E28A3173227A529D009A851D /* Node.h */,
+				E28A3175227A529D009A851D /* BSTDriver.cpp */,
+				E28A3177227A529D009A851D /* BSTree.hpp */,
 			);
-			path = FinalProject_V2;
+			path = MaxM_TomL_BSTFinalProject;
 			sourceTree = "<group>";
 		};
-		E273DB6C2267BDFB003110FB /* InputFiles */ = {
+		E28A316C227A529D009A851D /* InputFiles */ = {
 			isa = PBXGroup;
 			children = (
-				E28C839022684169009335FB /* actor-actress.csv */,
-				E28C838E22684169009335FB /* nominations.csv */,
-				E28C838F22684169009335FB /* pictures.csv */,
+				E28A316D227A529D009A851D /* pictures.csv */,
+				E28A316E227A529D009A851D /* nominations.csv */,
+				E28A316F227A529D009A851D /* actor-actress.csv */,
 			);
 			path = InputFiles;
 			sourceTree = "<group>";
@@ -140,7 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E273DB6B2267BDE9003110FB /* BSTDriver.cpp in Sources */,
+				E28A317B227A529D009A851D /* BSTDriver.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
